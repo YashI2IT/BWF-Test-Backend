@@ -28,6 +28,17 @@ exports.getTeacherProfile = async (req, res) => {
       profilePic: teacher?.profilePic,
       programName: teacher?.programName,
       profileVisibility: teacher?.profileVisibility,
+      gender: teacher?.gender,
+      dob: teacher?.dob,
+      address: teacher?.address,
+      hostel: teacher?.hostel,
+      hostelLocation: teacher?.hostelLocation,
+      qualification: teacher?.qualification,
+      joiningDate: teacher?.joiningDate,
+      status: teacher?.status || 'Active',
+      emergencyName: teacher?.emergencyName,
+      emergencyPhone: teacher?.emergencyPhone,
+      emergencyRelation: teacher?.emergencyRelation,
       widgetSettings: teacher?.widgetSettings || { stats: true, schedule: true, tasks: true, progress: true }
     });
   } catch (error) {
@@ -38,7 +49,11 @@ exports.getTeacherProfile = async (req, res) => {
 // Update Profile
 exports.updateTeacherProfile = async (req, res) => {
   try {
-    const { name, email, phone, bio, programName, profilePic, profileVisibility, widgetSettings } = req.body;
+    const {
+      name, email, phone, bio, programName, profilePic, profileVisibility, widgetSettings,
+      gender, dob, address, hostel, hostelLocation, qualification, joiningDate, status,
+      emergencyName, emergencyPhone, emergencyRelation
+    } = req.body;
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
@@ -57,6 +72,17 @@ exports.updateTeacherProfile = async (req, res) => {
     if (profilePic !== undefined) updateData.profilePic = profilePic;
     if (profileVisibility !== undefined) updateData.profileVisibility = profileVisibility;
     if (widgetSettings !== undefined) updateData.widgetSettings = widgetSettings;
+    if (gender !== undefined) updateData.gender = gender;
+    if (dob !== undefined) updateData.dob = dob;
+    if (address !== undefined) updateData.address = address;
+    if (hostel !== undefined) updateData.hostel = hostel;
+    if (hostelLocation !== undefined) updateData.hostelLocation = hostelLocation;
+    if (qualification !== undefined) updateData.qualification = qualification;
+    if (joiningDate !== undefined) updateData.joiningDate = joiningDate;
+    if (status !== undefined) updateData.status = status;
+    if (emergencyName !== undefined) updateData.emergencyName = emergencyName;
+    if (emergencyPhone !== undefined) updateData.emergencyPhone = emergencyPhone;
+    if (emergencyRelation !== undefined) updateData.emergencyRelation = emergencyRelation;
 
     const teacher = await Teacher.findOneAndUpdate(
       { auth_id: user.auth_id },

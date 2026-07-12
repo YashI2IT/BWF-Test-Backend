@@ -41,6 +41,17 @@ const teacherSchema = new mongoose.Schema({
     enum: ['public', 'private', 'students_only'],
     default: 'public'
   },
+  gender: { type: String, required: false },
+  dob: { type: String, required: false },
+  address: { type: String, required: false },
+  hostel: { type: String, required: false },
+  hostelLocation: { type: String, required: false },
+  qualification: { type: String, required: false },
+  joiningDate: { type: String, required: false },
+  status: { type: String, default: 'Active' },
+  emergencyName: { type: String, required: false },
+  emergencyPhone: { type: String, required: false },
+  emergencyRelation: { type: String, required: false },
   widgetSettings: {
     stats: { type: Boolean, default: true },
     schedule: { type: Boolean, default: true },
