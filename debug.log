@@ -1,0 +1,15 @@
+2026-07-10T03:50:36.246Z - Error in createSchedule: ValidationError: TeacherSchedule validation failed: attachments.0: Cast to [string] failed for value "Proxy([\n' +
+  '  {\n' +
+  "    name: 'Yash_Borade_Resume.pdf',\n" +
+  "    url: 'https://res.cloudinary.com/co2gsulq/image/upload/v1783655434/community_posts/p7lvdwliij0sp13ppocl.pdf',\n" +
+  "    type: 'application/pdf'\n" +
+  '  }\n' +
+  '])" (type string) at path "attachments.0" because of "CastError"
+    at Document.invalidate (D:\BWF\BWF\BWF-Backend-main\node_modules\mongoose\lib\document.js:3433:32)
+    at model.$set (D:\BWF\BWF\BWF-Backend-main\node_modules\mongoose\lib\document.js:1530:12)
+    at model.$set (D:\BWF\BWF\BWF-Backend-main\node_modules\mongoose\lib\document.js:1170:16)
+    at model.Document (D:\BWF\BWF\BWF-Backend-main\node_modules\mongoose\lib\document.js:181:12)
+    at model.Model (D:\BWF\BWF\BWF-Backend-main\node_modules\mongoose\lib\model.js:136:12)
+    at new model (D:\BWF\BWF\BWF-Backend-main\node_modules\mongoose\lib\model.js:4859:15)
+    at exports.createSchedule (D:\BWF\BWF\BWF-Backend-main\teacher\controllers\schedule.js:43:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
