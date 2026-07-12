@@ -56,6 +56,9 @@ app.use("/api/teacher", require("./teacher/routes"));
 
 app.get('/', (req, res) => res.send('BWF Server running...'));
 
+// Health check endpoint — used by uptime monitors to prevent Render free tier sleep
+app.get('/health', (req, res) => res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() }));
+
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
   require('fs').appendFileSync('debug.log', new Date().toISOString() + ' - Express Error: ' + (err.stack || err) + '\n');
@@ -64,4 +67,16 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
+
+  // Self-ping every 10 minutes to prevent Render free tier sleep
+  if (process.env.NODE_ENV === 'production') {
+    const https = require('https');
+    setInterval(() => {
+      https.get(`https://bwf-backend-wg6b.onrender.com/health`, (res) => {
+        console.log(`Self-ping status: ${res.statusCode}`);
+      }).on('error', (err) => {
+        console.error('Self-ping failed:', err.message);
+      });
+    }, 10 * 60 * 1000); // every 10 minutes
+  }
 });
