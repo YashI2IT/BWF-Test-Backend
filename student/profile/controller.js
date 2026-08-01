@@ -51,6 +51,8 @@ async function updateStudent(req, res) {
     }
 
     const allowedFields = [
+      "name",
+      "DOB",
       "bio",
       "classInfo",
       "interests",
@@ -58,11 +60,20 @@ async function updateStudent(req, res) {
       "customAvatarUrl",
     ];
 
+    if (updateData.dob !== undefined) {
+      updateData.DOB = updateData.dob;
+      delete updateData.dob;
+    }
+
     updateData = Object.fromEntries(
       Object.entries(updateData).filter(([key]) =>
         allowedFields.includes(key)
       )
     );
+
+    if (updateData.classInfo === "") {
+      delete updateData.classInfo;
+    }
 
     if (Object.keys(updateData).length === 0) {
       return res.status(400).json({ message: "No valid fields to update" });
@@ -86,7 +97,7 @@ async function updateStudent(req, res) {
     const student = await Student.findOneAndUpdate(
       { auth_id },
       updateData,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
 
     if (!student) {

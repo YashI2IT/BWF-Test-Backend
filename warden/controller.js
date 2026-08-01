@@ -5,9 +5,9 @@ const bcrypt = require('bcrypt');
 const Staff = require('./models/staff');
 const Post = require('./models/post');
 const WardenComplaint = require('./models/complaints');
-const ComplaintHistory = require('./models/complaintHistory');
 const Activity = require('./models/activity');
 const PendingActivity = require('./models/pendingActivity');
+const Expense = require('../models/Expense');
 const mongoose = require('mongoose');
 
 const postToResponse = (post, userId) => {
@@ -170,9 +170,7 @@ async function getStudents(req, res) {
       return res.status(404).json({ message: "Warden not found" });
     }
 
-    const students = await Student.find({
-      hostelName: warden.hostelName
-    })
+    const students = await Student.find({})
       .populate("hostelName")
       .select("-__v");
 
@@ -292,7 +290,7 @@ async function updateStudent(req, res) {
     const updatedStudent = await Student.findByIdAndUpdate(
       student._id,
       updates,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName");
 
     return res.status(200).json(updatedStudent);
@@ -385,7 +383,7 @@ async function updateStudentCredentials(req, res) {
     const updatedStudent = await Student.findByIdAndUpdate(
       student._id,
       studentUpdates,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName");
 
     return res.status(200).json({
@@ -552,9 +550,7 @@ async function getStaff(req, res) {
       return res.status(404).json({ message: "Warden not found" });
     }
 
-    const staff = await Staff.find({
-      hostelName: warden.hostelName
-    })
+    const staff = await Staff.find({})
       .populate("hostelName")
       .select("-__v");
 
@@ -618,7 +614,7 @@ async function updateStaff(req, res) {
         hostelName: warden.hostelName
       },
       updates,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName");
 
     if (!staff) {
@@ -719,7 +715,7 @@ async function updateStaffCredentials(req, res) {
     const updatedStaff = await Staff.findByIdAndUpdate(
       staff._id,
       staffUpdates,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName");
 
     return res.status(200).json({
@@ -778,6 +774,7 @@ async function getPosts(req, res) {
   try {
     const userId = req.user.id;
     const { pinned } = req.query;
+    const CommunityPost = require('../models/CommunityPost');
 
     const warden = await Warden.findOne({ userId });
     if (!warden) {
@@ -785,19 +782,67 @@ async function getPosts(req, res) {
     }
 
     const query = {};
+    const cpQuery = { isVerified: true };
+
     if (warden.hostelName) {
-      query.hostelName = warden.hostelName;
+      query.$or = [
+        { hostelName: warden.hostelName },
+        { creatorRole: 'teacher' }
+      ];
+    } else {
+      query.creatorRole = 'teacher';
     }
     if (pinned === "true") {
       query.pinned = true;
+      cpQuery.pinned = true;
     }
 
     const posts = await Post.find(query)
       .populate("hostelName")
       .sort({ date: -1, time: -1, createdAt: -1 })
-      .select("-__v");
+      .select("-__v")
+      .lean();
 
-    return res.status(200).json(posts.map((post) => postToResponse(post, userId)));
+    const mappedPosts = posts.map((post) => postToResponse(post, userId));
+
+    const communityPosts = await CommunityPost.find(cpQuery)
+      .sort({ createdAt: -1 })
+      .lean();
+
+    const mappedCommunityPosts = communityPosts.map(cp => {
+      const isLiked = cp.likedBy && cp.likedBy.some(v => String(v) === String(userId));
+      return {
+        _id: cp._id,
+        id: cp._id,
+        author: cp.author,
+        content: cp.content,
+        date: cp.createdAt,
+        time: cp.createdAt ? cp.createdAt.toISOString().split('T')[1].substring(0, 5) : "00:00",
+        status: cp.isVerified ? 'Approved' : 'Pending',
+        type: 'text',
+        tags: cp.category ? [cp.category] : [],
+        pollOptions: [],
+        voters: cp.likedBy ? cp.likedBy.map(uid => ({ userId: uid, optionIndex: 0 })) : [],
+        userVote: isLiked ? 0 : null,
+        creatorId: cp.userId,
+        creatorRole: cp.role,
+        hostelName: 'Community',
+        pinned: false,
+        canManage: String(cp.userId) === String(userId),
+        mediaUrl: cp.mediaUrl || null,
+        mediaType: 'image'
+      };
+    });
+
+    const allPosts = [...mappedPosts, ...mappedCommunityPosts];
+    // Sort all by date (newest first)
+    allPosts.sort((a, b) => {
+      const dateA = a.date ? new Date(a.date).getTime() : 0;
+      const dateB = b.date ? new Date(b.date).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    return res.status(200).json(allPosts);
 
   } catch (err) {
     console.error(err);
@@ -807,8 +852,16 @@ async function getPosts(req, res) {
 
 async function createPost(req, res) {
   try {
+    console.log("createPost HIT! req.body:", req.body, "req.file:", req.file ? req.file.originalname : null);
     const userId = req.user.id;
-    const { content, type = "text", tags, pollOptions } = req.body;
+    let { content, type = "text", tags, pollOptions } = req.body;
+
+    if (typeof tags === 'string') {
+      try { tags = JSON.parse(tags); } catch (e) { tags = []; }
+    }
+    if (typeof pollOptions === 'string') {
+      try { pollOptions = JSON.parse(pollOptions); } catch (e) { pollOptions = []; }
+    }
 
     if (!content || !String(content).trim()) {
       return res.status(400).json({ message: "Post content is required" });
@@ -831,7 +884,17 @@ async function createPost(req, res) {
     const latestPost = await Post.findOne().sort({ id: -1 }).select("id");
     const now = new Date();
 
-    const post = await Post.create({
+    let mediaUrl = null;
+    let mediaType = null;
+    if (req.file) {
+      const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+      mediaUrl = `${baseUrl}/uploads/${req.file.filename}`;
+      if (req.file.mimetype.startsWith('image/')) mediaType = 'image';
+      else if (req.file.mimetype.startsWith('video/')) mediaType = 'video';
+      else if (req.file.mimetype === 'application/pdf') mediaType = 'pdf';
+    }
+
+    const postData = {
       id: (latestPost?.id || 0) + 1,
       author: warden.name,
       content: String(content).trim(),
@@ -845,7 +908,12 @@ async function createPost(req, res) {
       creatorRole: "warden",
       hostelName: warden.hostelName,
       pinned: false,
-    });
+    };
+
+    if (mediaUrl) postData.mediaUrl = mediaUrl;
+    if (mediaType) postData.mediaType = mediaType;
+
+    const post = await Post.create(postData);
 
     const populatedPost = await post.populate("hostelName");
 
@@ -856,7 +924,7 @@ async function createPost(req, res) {
 
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error: " + err.message, stack: err.stack });
   }
 }
 
@@ -911,6 +979,14 @@ async function updatePost(req, res) {
       updates.pollOptions = normalizedPollOptions;
     }
 
+    if (req.file) {
+      const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+      updates.mediaUrl = `${baseUrl}/uploads/${req.file.filename}`;
+      if (req.file.mimetype.startsWith('image/')) updates.mediaType = 'image';
+      else if (req.file.mimetype.startsWith('video/')) updates.mediaType = 'video';
+      else if (req.file.mimetype === 'application/pdf') updates.mediaType = 'pdf';
+    }
+
     if (Object.keys(updates).length === 0) {
       return res.status(400).json({ message: "No valid fields to update" });
     }
@@ -918,7 +994,7 @@ async function updatePost(req, res) {
     const updatedPost = await Post.findByIdAndUpdate(
       post._id,
       updates,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName");
 
     return res.status(200).json(postToResponse(updatedPost, userId));
@@ -942,7 +1018,7 @@ async function updatePostPin(req, res) {
     const post = await Post.findOneAndUpdate(
       { _id: postId, creatorId: userId },
       { pinned: Boolean(pinned) },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName");
 
     if (!post) {
@@ -1034,6 +1110,7 @@ async function updateWardenProfile(req, res) {
       "status",
       "emergencyContact",
       "profilePic",
+      "hostelName",
     ];
 
     const updates = {};
@@ -1053,7 +1130,7 @@ async function updateWardenProfile(req, res) {
     const warden = await Warden.findOneAndUpdate(
       { userId },
       updates,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName");
 
     if (warden && updates.name) {
@@ -1152,7 +1229,8 @@ async function getComplaints(req, res) {
     }
 
     const complaints = await WardenComplaint.find({
-      hostelName: warden.hostelName
+      hostelName: warden.hostelName,
+      status: { $ne: 'RESOLVED' }
     })
       .populate("hostelName")
       .populate("creator")
@@ -1206,25 +1284,25 @@ async function approveComplaint(req, res) {
     const updatedComplaint = await WardenComplaint.findByIdAndUpdate(
       complaint._id,
       updates,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName").populate("creator");
 
-    // Sync to ComplaintHistory
+    // Sync with Student complaint if applicable
     if (updatedComplaint) {
-      await ComplaintHistory.create({
-        title: updatedComplaint.title,
-        description: updatedComplaint.description,
-        reporter: updatedComplaint.reporter,
-        role: updatedComplaint.role,
-        date: updatedComplaint.date,
-        time: updatedComplaint.time,
-        location: updatedComplaint.location,
-        priority: updatedComplaint.priority,
-        status: updatedComplaint.status,
-        timeline: updatedComplaint.timeline,
-        creator: updatedComplaint.creator._id || updatedComplaint.creator,
-        hostelName: updatedComplaint.hostelName._id || updatedComplaint.hostelName
-      });
+      try {
+        const User = require('../models/User');
+        const StudentComplaint = require('../student/models/complaints');
+        const creatorId = updatedComplaint.creator._id || updatedComplaint.creator;
+        const user = await User.findById(creatorId);
+        if (user) {
+          await StudentComplaint.updateMany(
+            { auth_id: user.auth_id, message: updatedComplaint.description },
+            { status: 'resolved' }
+          );
+        }
+      } catch (e) {
+        console.error("Failed to sync status to student complaint:", e);
+      }
     }
 
     return res.status(200).json(updatedComplaint);
@@ -1274,25 +1352,25 @@ async function rejectComplaint(req, res) {
     const updatedComplaint = await WardenComplaint.findByIdAndUpdate(
       complaint._id,
       updates,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName").populate("creator");
 
-    // Sync to ComplaintHistory
+    // Sync with Student complaint if applicable
     if (updatedComplaint) {
-      await ComplaintHistory.create({
-        title: updatedComplaint.title,
-        description: updatedComplaint.description,
-        reporter: updatedComplaint.reporter,
-        role: updatedComplaint.role,
-        date: updatedComplaint.date,
-        time: updatedComplaint.time,
-        location: updatedComplaint.location,
-        priority: updatedComplaint.priority,
-        status: updatedComplaint.status,
-        timeline: updatedComplaint.timeline,
-        creator: updatedComplaint.creator._id || updatedComplaint.creator,
-        hostelName: updatedComplaint.hostelName._id || updatedComplaint.hostelName
-      });
+      try {
+        const User = require('../models/User');
+        const StudentComplaint = require('../student/models/complaints');
+        const creatorId = updatedComplaint.creator._id || updatedComplaint.creator;
+        const user = await User.findById(creatorId);
+        if (user) {
+          await StudentComplaint.updateMany(
+            { auth_id: user.auth_id, message: updatedComplaint.description },
+            { status: 'escalated' }
+          );
+        }
+      } catch (e) {
+        console.error("Failed to sync status to student complaint:", e);
+      }
     }
 
     return res.status(200).json(updatedComplaint);
@@ -1344,8 +1422,9 @@ async function getComplaintHistory(req, res) {
       return res.status(404).json({ message: "Warden not found" });
     }
 
-    const history = await ComplaintHistory.find({
-      hostelName: warden.hostelName
+    const history = await WardenComplaint.find({
+      hostelName: warden.hostelName,
+      status: { $ne: 'OPEN' }
     })
       .populate("hostelName")
       .populate("creator")
@@ -1374,9 +1453,10 @@ async function deleteComplaintHistory(req, res) {
       return res.status(404).json({ message: "Warden not found" });
     }
 
-    const history = await ComplaintHistory.findOneAndDelete({
+    const history = await WardenComplaint.findOneAndDelete({
       _id: historyId,
-      hostelName: warden.hostelName
+      hostelName: warden.hostelName,
+      status: { $ne: 'OPEN' }
     });
 
     if (!history) {
@@ -1523,7 +1603,7 @@ async function approveActivity(req, res) {
         approvedBy: userId,
         rejectedBy: null
       },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName").populate("creator").populate("approvedBy", "name");
 
     if (!pendingActivity) {
@@ -1588,7 +1668,7 @@ async function rejectActivity(req, res) {
         rejectedBy: userId, // Store user ID
         approvedBy: null
       },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate("hostelName").populate("creator").populate("rejectedBy", "name");
 
     if (!activity) {
@@ -1735,24 +1815,44 @@ async function testCreateActivity(req, res) {
 
     const normalizedRole = roleMap[requesterRole] || 'student';
     const isAutoApproved = normalizedRole === 'warden';
-    const status = isAutoApproved ? 'Approved' : 'Pending';
+    const status = isAutoApproved ? 'approved' : 'pending';
 
-    const latestActivity = await PendingActivity.findOne().sort({ id: -1 }).select("id");
-
-    const activity = await PendingActivity.create({
-      id: (latestActivity?.id || 0) + 1,
-      title: title || "Test Activity",
-      description: description || "Test description",
-      requestedBy: requesterName || requesterUser.name,
-      requesterRole: normalizedRole,
-      date: date || new Date(),
-      time: time || "10:00",
-      location: location || "Hostel Ground",
-      category: category || "Sports",
-      status: 'Pending',
-      creator: requesterUser._id,
-      hostelName: warden.hostelName
-    });
+    let activity;
+    
+    if (isAutoApproved) {
+      const Activity = require('./models/activity');
+      activity = await Activity.create({
+        title: title || "Test Activity",
+        description: description || "Test description",
+        requestedBy: requesterName || requesterUser.name,
+        requesterRole: normalizedRole,
+        date: date || new Date(),
+        time: time || "10:00",
+        location: location || "Hostel Ground",
+        category: category || "Sports",
+        status: 'upcoming',
+        creator: requesterUser._id,
+        hostelName: warden.hostelName,
+        approvedBy: requesterUser._id,
+      });
+    } else {
+      const latestActivity = await PendingActivity.findOne().sort({ id: -1 }).select("id");
+      activity = await PendingActivity.create({
+        id: (latestActivity?.id || 0) + 1,
+        title: title || "Test Activity",
+        description: description || "Test description",
+        requestedBy: requesterName || requesterUser.name,
+        requesterRole: normalizedRole,
+        date: date || new Date(),
+        time: time || "10:00",
+        location: location || "Hostel Ground",
+        category: category || "Sports",
+        status: status,
+        creator: requesterUser._id,
+        hostelName: warden.hostelName,
+        allocatedHome: req.body.allocatedHome
+      });
+    }
 
     const populatedActivity = await activity.populate([
       { path: "hostelName" },
@@ -1768,6 +1868,101 @@ async function testCreateActivity(req, res) {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server error" });
+  }
+}
+
+// ==========================================
+// EXPENSE ENDPOINTS
+// ==========================================
+
+async function getExpenses(req, res) {
+  try {
+    const expenses = await Expense.find().sort({ createdAt: -1 });
+    res.json(expenses);
+  } catch (error) {
+    console.error("getExpenses error:", error);
+    res.status(500).json({ message: "Failed to fetch expenses" });
+  }
+}
+
+async function addExpense(req, res) {
+  try {
+    const newExpense = new Expense({
+      ...req.body,
+      submittedBy: req.user.id
+    });
+    const saved = await newExpense.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    console.error("addExpense error:", error);
+    res.status(500).json({ message: "Failed to add expense" });
+  }
+}
+
+async function updateExpense(req, res) {
+  try {
+    const { id } = req.params;
+    const updated = await Expense.findByIdAndUpdate(id, req.body, { returnDocument: 'after' });
+    if (!updated) return res.status(404).json({ message: "Expense not found" });
+    res.json(updated);
+  } catch (error) {
+    console.error("updateExpense error:", error);
+    res.status(500).json({ message: "Failed to update expense" });
+  }
+}
+
+async function deleteExpense(req, res) {
+  try {
+    const { id } = req.params;
+    const deleted = await Expense.findByIdAndDelete(id);
+    if (!deleted) return res.status(404).json({ message: "Expense not found" });
+    res.json({ message: "Expense deleted successfully" });
+  } catch (error) {
+    console.error("deleteExpense error:", error);
+    res.status(500).json({ message: "Failed to delete expense" });
+  }
+}
+
+async function getHostels(req, res) {
+  try {
+    const hostels = await Hostel.find().lean();
+    return res.status(200).json(hostels);
+  } catch (err) {
+    console.error('Error fetching hostels:', err);
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
+async function getComplaintHistory(req, res) {
+  try {
+    const wardenId = req.user.id;
+    const warden = await Warden.findOne({ userId: wardenId });
+    if (!warden) return res.status(404).json({ message: "Warden not found" });
+
+    const history = await WardenComplaint.find({
+      hostelName: warden.hostelName,
+      status: 'RESOLVED'
+    })
+      .populate("hostelName")
+      .populate("creator")
+      .sort({ "timeline.resolvedDate": -1, "timeline.resolvedTime": -1 })
+      .select("-__v");
+
+    res.json(history);
+  } catch (error) {
+    console.error("Error fetching complaint history:", error);
+    res.status(500).json({ message: "Failed to fetch history" });
+  }
+}
+
+async function deleteComplaintHistory(req, res) {
+  try {
+    const { historyId } = req.params;
+    await WardenComplaint.findByIdAndDelete(historyId);
+    res.json({ message: "History record deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting complaint history:", error);
+    res.status(500).json({ message: "Failed to delete history record" });
   }
 }
 
@@ -1788,6 +1983,7 @@ module.exports = {
   updatePostPin,
   deletePost,
   votePost,
+  getHostels,
   getWardenProfile,
   updateWardenProfile,
   getComplaints,
@@ -1804,4 +2000,8 @@ module.exports = {
   deleteActivity,
   deletePendingActivity,
   testCreateActivity,
+  getExpenses,
+  addExpense,
+  updateExpense,
+  deleteExpense,
 };

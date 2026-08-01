@@ -10,7 +10,6 @@ const complaintSchema = new mongoose.Schema(
     message: {
       type: String,
       trim: true,
-      minlength: 10,
       maxLength: 1000,
       required: true
     },

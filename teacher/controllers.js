@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Hostel = require('../models/Hostel');
 const Teacher = require('./models/teacher');
 const Student = require('../student/models/student');
 const GlobalResource = require('../student/models/GlobalResource');
@@ -87,7 +88,7 @@ exports.updateTeacherProfile = async (req, res) => {
     const teacher = await Teacher.findOneAndUpdate(
       { auth_id: user.auth_id },
       { $set: updateData },
-      { new: true, upsert: true }
+      { returnDocument: 'after', upsert: true }
     );
 
     res.json({ message: 'Profile updated successfully', profile: teacher });
@@ -120,11 +121,31 @@ exports.updateTeacherPassword = async (req, res) => {
 // Get Dashboard (Students, Resources, Pending Submissions, Chart Data)
 exports.getTeacherDashboard = async (req, res) => {
   try {
-    const students = await Student.find({}, '_id auth_id name class mentorName');
+    const user = await User.findById(req.user.id);
+    const teacher = await Teacher.findOne({ auth_id: user.auth_id });
+    if (!teacher) {
+      return res.status(404).json({ message: 'Teacher not found' });
+    }
+
+    let hostelFilter = {};
+    let studentAuthIds = [];
+    
+    if (teacher.hostel) {
+      const hostel = await Hostel.findOne({ name: teacher.hostel });
+      if (hostel) {
+        hostelFilter = { hostelName: hostel._id };
+        const myStudents = await Student.find(hostelFilter, 'auth_id');
+        studentAuthIds = myStudents.map(s => s.auth_id);
+      }
+    }
+
+    const studentFilter = studentAuthIds.length > 0 ? { auth_id: { $in: studentAuthIds } } : {};
+
+    const students = await Student.find(hostelFilter, '_id auth_id name class mentorName');
     const resources = await GlobalResource.find({}, '_id key value');
     
     // Pending submissions
-    const pendingSubmissions = await StudentAssignment.find({ status: 'pending' })
+    const pendingSubmissions = await StudentAssignment.find({ ...studentFilter, status: 'pending' })
       .populate('assignment_id', 'title subject dueDate')
       .exec();
 
@@ -138,7 +159,7 @@ exports.getTeacherDashboard = async (req, res) => {
     }));
 
     // Aggregate Assignment Progress Data
-    const allAssignments = await StudentAssignment.find({});
+    const allAssignments = await StudentAssignment.find(studentFilter);
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const currentMonthIndex = new Date().getMonth();
     const assignmentProgressData = [];
@@ -161,7 +182,7 @@ exports.getTeacherDashboard = async (req, res) => {
     });
 
     // Aggregate Mood Breakdown
-    const allMoods = await MoodLog.find({});
+    const allMoods = await MoodLog.find(studentFilter);
     let moodMap = { 'Happy': 0, 'Okay': 0, 'Help': 0 };
     allMoods.forEach(m => {
        const moodCap = m.mood ? m.mood.charAt(0).toUpperCase() + m.mood.slice(1) : 'Okay';
@@ -169,15 +190,16 @@ exports.getTeacherDashboard = async (req, res) => {
     });
     
     const moodBreakdown = [
-      { name: 'Happy', value: moodMap['Happy'] || (allMoods.length ? 0 : 65), fill: '#10b981' },
-      { name: 'Okay', value: moodMap['Okay'] || (allMoods.length ? 0 : 25), fill: '#f59e0b' },
-      { name: 'Help', value: moodMap['Help'] || (allMoods.length ? 0 : 10), fill: '#ef4444' },
+      { name: 'Happy', value: moodMap['Happy'] || (allMoods.length ? 0 : 0), fill: '#10b981' },
+      { name: 'Okay', value: moodMap['Okay'] || (allMoods.length ? 0 : 0), fill: '#f59e0b' },
+      { name: 'Help', value: moodMap['Help'] || (allMoods.length ? 0 : 0), fill: '#ef4444' },
     ];
 
     // Tracker Data (Assignments submitted in last 30 days scaled into a weekly view, so it's guaranteed to show DB data)
     const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     const trackerData = days.map(day => ({ name: day, value: 0 }));
     const recentSubs = await StudentAssignment.find({
+      ...studentFilter,
       updatedAt: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }
     });
     recentSubs.forEach(sub => {
@@ -188,12 +210,9 @@ exports.getTeacherDashboard = async (req, res) => {
       }
     });
 
-    // We removed the random mock fallback entirely. This is now 100% pure DB data.
-    // If the graph is flat, it means no assignments have been created/updated recently in your local DB!
-
     // Today's Schedule
     const today = new Date().toISOString().split('T')[0];
-    const tSchedules = await TeacherSchedule.find({ teacherId: req.user._id, date: today }).sort({ startTime: 1 });
+    const tSchedules = await TeacherSchedule.find({ teacherId: req.user.id, date: today }).sort({ startTime: 1 });
     const todaySchedule = tSchedules.map(sch => ({
       time: sch.startTime,
       title: sch.title,
@@ -202,17 +221,17 @@ exports.getTeacherDashboard = async (req, res) => {
     }));
 
     // Daily Tasks
-    const tasks = await Task.find().sort({ createdAt: -1 }).limit(3);
+    const tasks = await Task.find({ assignedTo: teacher.auth_id }).sort({ createdAt: -1 }).limit(3);
     const dailyTasks = tasks.map(t => ({
       id: t._id,
       title: t.title,
-      status: t.status === 'verified' ? 'completed' : 'due_today'
+      status: t.status === 'verified' ? 'completed' : (t.status === 'pending' ? 'due_today' : 'pending')
     }));
 
     // Class Progress
-    const totalAssignments = await StudentAssignment.countDocuments();
-    const reviewed = await StudentAssignment.countDocuments({ status: { $in: ['approved', 'rejected'] } });
-    const passed = await StudentAssignment.countDocuments({ status: 'approved' });
+    const totalAssignments = await StudentAssignment.countDocuments(studentFilter);
+    const reviewed = await StudentAssignment.countDocuments({ ...studentFilter, status: { $in: ['approved', 'rejected'] } });
+    const passed = await StudentAssignment.countDocuments({ ...studentFilter, status: 'approved' });
     const classProgress = { assignments: totalAssignments, reviewed, passed };
 
     res.json({
@@ -240,7 +259,7 @@ exports.assignMentor = async (req, res) => {
     const student = await Student.findOneAndUpdate(
       { auth_id: studentAuthId },
       { mentorName },
-      { new: true }
+      { returnDocument: 'after' }
     );
 
     if (!student) {
@@ -348,7 +367,7 @@ exports.updateMentorNote = async (req, res) => {
     const { noteId } = req.params;
     const { message } = req.body;
     
-    const updatedNote = await MentorNote.findByIdAndUpdate(noteId, { message }, { new: true });
+    const updatedNote = await MentorNote.findByIdAndUpdate(noteId, { message }, { returnDocument: 'after' });
     if (!updatedNote) return res.status(404).json({ message: 'Note not found' });
     
     res.json({ message: 'Note updated', updatedNote });
@@ -401,7 +420,7 @@ exports.getMentorNotes = async (req, res) => {
 // Get Students for Dropdown
 exports.getStudents = async (req, res) => {
   try {
-    const students = await Student.find({}, '_id auth_id name class');
+    const students = await Student.find({}, '_id auth_id name class hostelName mentorName').populate('hostelName', 'name');
     res.json(students);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching students', error: error.message });
@@ -417,7 +436,7 @@ exports.updateResource = async (req, res) => {
     const resource = await GlobalResource.findOneAndUpdate(
       { key },
       { value },
-      { new: true, upsert: true }
+      { returnDocument: 'after', upsert: true }
     );
 
     res.json({ message: 'Resource updated', resource });
@@ -548,7 +567,7 @@ exports.getSubmissions = async (req, res) => {
       submissionText: sub.submissionText,
       submittedAt: sub.submittedDate || sub.updatedAt || sub.createdAt,
       status: sub.status,
-      fileUrl: sub.fileUrl,
+      fileUrl: sub.mediaUrl || sub.fileUrl,
       rejectionNote: sub.rejectionNote,
     }));
 
@@ -567,7 +586,7 @@ exports.reviewSubmission = async (req, res) => {
     const submission = await StudentAssignment.findByIdAndUpdate(
       submissionId,
       { status, rejectionNote },
-      { new: true }
+      { returnDocument: 'after' }
     );
 
     if (!submission) {

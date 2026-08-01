@@ -5,6 +5,7 @@ const {
 } = require("./service");
 
 const CounsellingRequest = require("../models/counsellingRequest");
+const DailyTask = require("../models/dailyTask");
 
 async function postMood(req, res) {
   try {
@@ -81,10 +82,52 @@ async function getHistory(req, res) {
 }
 
 
+async function toggleTask(req, res) {
+  try {
+    const auth_id = req.user.auth_id;
+    const { completed } = req.body;
+
+    const date = new Date().toISOString().split("T")[0];
+
+    const task = await DailyTask.findOneAndUpdate(
+      { auth_id, date },
+      { completed, auth_id, date },
+      { upsert: true, returnDocument: 'after' }
+    );
+
+    return res.status(200).json({
+      success: true,
+      task
+    });
+
+  } catch (err) {
+    console.error("TASK ERROR:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
+async function getTodayTask(req, res) {
+  try {
+    const auth_id = req.user.auth_id;
+    const date = new Date().toISOString().split("T")[0];
+
+    const task = await DailyTask.findOne({ auth_id, date });
+
+    return res.status(200).json({
+      task: task || { completed: false },
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
 
 module.exports = {
   postMood,
   getMood,
   requestCounselling,
-  getHistory
+  toggleTask,
+  getHistory,
+  getTodayTask
 };

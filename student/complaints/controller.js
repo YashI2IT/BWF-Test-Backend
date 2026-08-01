@@ -19,6 +19,39 @@ async function postComplaint(req, res) {
       category,
     });
 
+    try {
+      const User = require("../../models/User");
+      const Student = require("../models/student");
+      const WardenComplaint = require("../../warden/models/complaints");
+      
+      const user = await User.findOne({ auth_id });
+      if (user) {
+        const student = await Student.findOne({ userId: user._id });
+        if (student) {
+          const now = new Date();
+          await WardenComplaint.create({
+            title: category || "Personal Complaint",
+            description: message,
+            reporter: student.name || user.name || "Student",
+            role: "student",
+            date: now,
+            time: now.toTimeString().slice(0, 5),
+            location: "Not specified",
+            priority: "Medium",
+            status: "OPEN",
+            timeline: {
+              reportedDate: now,
+              reportedTime: now.toTimeString().slice(0, 5),
+            },
+            creator: user._id,
+            hostelName: student.hostelName
+          });
+        }
+      }
+    } catch (createErr) {
+      console.error("Failed to create WardenComplaint copy:", createErr);
+    }
+
     return res.status(201).json({
       complaint: {
         _id: complaint._id,

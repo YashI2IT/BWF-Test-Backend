@@ -1,4 +1,5 @@
 const Schedule = require('../models/schedule');
+const TeacherSchedule = require('../../teacher/models/schedule');
 const Assignment = require('../models/assignment');
 const MentorNote = require('../models/mentorNote');
 const GlobalResource = require('../models/GlobalResource');
@@ -13,10 +14,19 @@ function getTodayString() {
 // Limited to 10 — the dashboard card doesn't paginate.
 async function getTodaySchedule(auth_id) {
   const today = getTodayString();
-  return Schedule.find({ auth_id, date: today })
-    .sort({ startTime: 1 })
-    .limit(10)
-    .lean();
+  
+  // Get student-specific schedules
+  const studentSchedules = await Schedule.find({ auth_id, date: today }).lean();
+  
+  // Get global teacher schedules for today
+  const teacherSchedules = await TeacherSchedule.find({ date: today }).lean();
+  
+  // Combine, sort by start time, and take top 10
+  const combined = [...studentSchedules, ...teacherSchedules].sort((a, b) => {
+    return a.startTime.localeCompare(b.startTime);
+  }).slice(0, 10);
+  
+  return combined;
 }
 
 // Recent assignments — up to 5, sorted by due date ascending so most urgent is first.

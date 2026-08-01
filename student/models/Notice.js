@@ -19,11 +19,6 @@ const noticeSchema = new mongoose.Schema({
     required: true
   },
 
-  imageUrl: {
-    type: String,
-    required: false
-  },
-
   category: {
     type: String,
     enum: ['academic', 'events', 'welfare', 'general'],
@@ -50,9 +45,30 @@ const noticeSchema = new mongoose.Schema({
     default: 'admin'
   },
 
+  creatorId: {
+    type: String,
+    required: false
+  },
+
+  creatorId: {
+    type: String,
+    required: false
+  },
+
   // Name of the person who created the notice
   authorName: {
     type: String,
+    required: false
+  },
+
+  imageUrl: {
+    type: String,
+    required: false
+  },
+
+  mediaType: {
+    type: String,
+    enum: ['image', 'video', 'pdf'],
     required: false
   },
 

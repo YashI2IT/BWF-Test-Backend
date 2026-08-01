@@ -7,8 +7,15 @@ async function getNotices(req, res) {
     const notices = await Notice.find({ isActive: true })
       .sort({ createdAt: -1 })
       .select('-__v');
+    const mappedNotices = notices.map(notice => {
+      const obj = notice.toObject();
+      return {
+        ...obj,
+        canManage: String(obj.creatorId) === String(req.user.id)
+      };
+    });
     
-    return res.status(200).json(notices);
+    return res.status(200).json(mappedNotices);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Server error" });
@@ -35,10 +42,19 @@ async function createNotice(req, res) {
     }); // e.g. "20 Jun 2026"
 
     let imageUrl = null;
+    let mediaType = null;
     if (req.file) {
       try {
         const result = await uploadToCloudinary(req.file.buffer, req.file.mimetype);
         imageUrl = result.url;
+        
+        if (req.file.mimetype.startsWith('video/')) {
+          mediaType = 'video';
+        } else if (req.file.mimetype === 'application/pdf') {
+          mediaType = 'pdf';
+        } else {
+          mediaType = 'image';
+        }
       } catch (uploadError) {
         console.error("Cloudinary upload failed:", uploadError);
         return res.status(500).json({ message: "Failed to upload image" });
@@ -53,7 +69,9 @@ async function createNotice(req, res) {
       deadline: deadline ? new Date(deadline) : undefined,
       authorRole: 'teacher',
       authorName,
+      creatorId: userId,
       imageUrl,
+      mediaType,
       isActive: true
     });
 
@@ -79,10 +97,19 @@ async function updateNotice(req, res) {
     }
 
     let imageUrl = notice.imageUrl;
+    let mediaType = notice.mediaType;
     if (req.file) {
       try {
         const result = await uploadToCloudinary(req.file.buffer, req.file.mimetype);
         imageUrl = result.url;
+        
+        if (req.file.mimetype.startsWith('video/')) {
+          mediaType = 'video';
+        } else if (req.file.mimetype === 'application/pdf') {
+          mediaType = 'pdf';
+        } else {
+          mediaType = 'image';
+        }
       } catch (uploadError) {
         console.error("Cloudinary upload failed:", uploadError);
         return res.status(500).json({ message: "Failed to upload image" });

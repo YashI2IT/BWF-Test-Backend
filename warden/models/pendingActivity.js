@@ -24,7 +24,6 @@ const pendingActivitySchema = new mongoose.Schema(
 
     requesterRole: {
       type: String,
-      enum: ['student', 'staff', 'warden'],
       required: true,
     },
 
@@ -51,8 +50,7 @@ const pendingActivitySchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ['Pending', 'Approved', 'Rejected'],
-      default: 'Pending',
+      default: 'pending',
     },
 
     rejectionReason: {

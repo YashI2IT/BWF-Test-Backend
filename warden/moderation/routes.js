@@ -25,26 +25,6 @@ router.put(
   moderationController.rejectPost
 );
 
-router.put(
-  '/:postId/forward',
-  authenticateToken,
-  authorizeRoles('warden'),
-  moderationController.forwardToAdmin
-);
-
-// Test route to create a pending post as a student
-router.post(
-  '/test/:studentId',
-  authenticateToken,
-  authorizeRoles('warden'),
-  moderationController.testCreatePost
-);
-
-router.delete(
-  '/:postId',
-  authenticateToken,
-  authorizeRoles('warden'),
-  moderationController.deletePendingPost
-);
+// Removed forwardToAdmin, testCreatePost, and deletePendingPost routes
 
 module.exports = router;

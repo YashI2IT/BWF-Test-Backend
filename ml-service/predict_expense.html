@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Expense Predictor</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #eef2ff 0%, #e8f7ff 100%);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .box {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 16px 30px rgba(20, 50, 93, 0.15);
+      text-align: center;
+    }
+    h2 {
+      margin-top: 0;
+      color: #1f3d7a;
+    }
+    select,
+    input,
+    button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e0;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: 1px solid #1e40af;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    #result {
+      margin: 14px 0 0;
+      min-height: 32px;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .info {
+      margin-top: 10px;
+      color: #334155;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    .info div {
+      margin-bottom:6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Expense Predictor</h2>
+  <label>
+    Home:
+    <select id="homeSelect">
+      <option value="Anantnag Home">Anantnag Home</option>
+      <option value="Kupwara Home">Kupwara Home</option>
+      <option value="Jammu Home">Jammu Home</option>
+      <!-- <option value="Bandipora Home">Bandipora Home</option> -->
+    </select>
+  </label>
+
+  <label>
+    Month:
+    <select id="monthSelect">
+      <option>January</option>
+      <option>February</option>
+      <option>March</option>
+      <option>April</option>
+      <option>May</option>
+      <option>June</option>
+      <option>July</option>
+      <option>August</option>
+      <option>September</option>
+      <option>October</option>
+      <option>November</option>
+      <option>December</option>
+    </select>
+  </label>
+
+  <label>
+    Year:
+    <input type="number" id="yearInput" value="2026" min="2025" max="2035">
+  </label>
+
+  <button id="predictBtn">Predict Expense</button>
+
+  <p id="result"></p>
+
+  <div id="currentData" class="info"></div>
+</div>
+
+<script>
+  const monthNames = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  const houseData = {
+    "Anantnag Home": [99370, 94683, 136335, 147708, 135314, 177714, 174214, 175907, 200759, 189580, 131231, 160000],
+    "Kupwara Home": [61000, 61000, 160822, 155240, 147174, 116647, 136115, 145784, 92882, 154681, 153868, 146051],
+    "Jammu Home": [290054, 198204, 256501, 160210, 132580, 135580, 180401, 195572, 150839, 156555, 160020, 466050],
+    // "Bandipora Home": [75000, 80421, 130400, 123000, 116850, 141230, 148690, 162345, 139802, 152330, 148960, 154300]
+  };
+
+  function calcRegression(data) {
+    const n = data.length;
+    let sumX=0, sumY=0, sumXY=0, sumX2=0;
+    for (let i=0; i<n; i++) {
+      const x = i + 1;
+      const y = data[i];
+      sumX += x;
+      sumY += y;
+      sumXY += x * y;
+      sumX2 += x * x;
+    }
+    const denom = n * sumX2 - sumX * sumX;
+    const slope = denom === 0 ? 0 : (n*sumXY - sumX*sumY) / denom;
+    const intercept = (sumY - slope * sumX)/n;
+    return { slope, intercept };
+  }
+
+  function formatCurrency(num) {
+    return "₹ " + Number(num).toLocaleString("en-IN");
+  }
+
+  function predictValue(data, year, monthIndex) {
+    const regression = calcRegression(data);
+    if (year === 2025 && monthIndex <= data.length) {
+      return data[monthIndex-1];
+    }
+    const baseYear = 2025;
+    const monthsAfterBase = (year - baseYear) * 12 + monthIndex;
+    return Math.round(regression.slope * monthsAfterBase + regression.intercept);
+  }
+
+  function updateCurrentData(home) {
+    const data = houseData[home];
+    const lines = data.map((val, idx) => `${monthNames[idx]} 2025: ${formatCurrency(val)}`);
+    document.getElementById("currentData").innerHTML =
+      "<strong>2025 data (" + home + ")</strong><br>" + lines.join("<br>");
+  }
+
+  document.getElementById("homeSelect").addEventListener("change", (e) => {
+    updateCurrentData(e.target.value);
+    document.getElementById("result").innerText = "";
+  });
+
+  document.getElementById("predictBtn").addEventListener("click", () => {
+    const house = document.getElementById("homeSelect").value;
+    const month = document.getElementById("monthSelect").value;
+    const year = parseInt(document.getElementById("yearInput").value, 10);
+
+    if (!houseData[house]) {
+      document.getElementById("result").innerText = "Select a valid home.";
+      return;
+    }
+    if (isNaN(year) || year < 2025) {
+      document.getElementById("result").innerText = "Year must be >= 2025.";
+      return;
+    }
+
+    const monthIndex = monthNames.indexOf(month) + 1;
+    const prediction = predictValue(houseData[house], year, monthIndex);
+
+    document.getElementById("result").innerText =
+      `${house} predicted expense for ${month} ${year}: ${formatCurrency(prediction)}`;
+  });
+
+  updateCurrentData(document.getElementById("homeSelect").value);
+</script>
+
+</body>
+</html>

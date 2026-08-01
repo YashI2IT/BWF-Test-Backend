@@ -58,7 +58,7 @@ async function updateTask(req, res) {
     const task = await Task.findByIdAndUpdate(
       taskId,
       updateData,
-      { new: true }
+      { returnDocument: 'after' }
     );
     
     if (!task) return res.status(404).json({ message: "Task not found" });
@@ -84,7 +84,7 @@ async function deleteTask(req, res) {
 async function verifyTask(req, res) {
   try {
     const { taskId } = req.params;
-    const task = await Task.findByIdAndUpdate(taskId, { status: 'verified' }, { new: true });
+    const task = await Task.findByIdAndUpdate(taskId, { status: 'verified' }, { returnDocument: 'after' });
     if (!task) return res.status(404).json({ message: "Task not found" });
     return res.status(200).json({ message: "Task verified", task });
   } catch (error) {

@@ -32,7 +32,7 @@ const studentSchema = new mongoose.Schema({
 
   gender: {
     type: String,
-    enum: ['male', 'female', 'other'],
+    enum: ['male', 'female', 'other', 'N/A'],
     required: false
   },
 
@@ -54,11 +54,6 @@ const studentSchema = new mongoose.Schema({
   hostelName: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Hostel',
-    required: false
-  },
-
-  mentorName: {
-    type: String,
     required: false
   },
 

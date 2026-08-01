@@ -40,10 +40,29 @@ connectDB();
 // Middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// --- Request Logger ---
+app.use((req, res, next) => {
+  console.log(`[REQ] ${req.method} ${req.url}`);
+  const originalSend = res.send;
+  res.send = function (body) {
+    if (res.statusCode === 404) {
+      console.log(`[404] ${req.method} ${req.url}`);
+    }
+    return originalSend.call(this, body);
+  };
+  next();
+});
+
 app.use(cookieParser());
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Auth Routes
 app.use('/api', require('./auth/route'));
+
+// Global Community Routes (accessible to all authenticated users)
+app.use('/api/community', require('./student/community/routes'));
 
 // Warden Routes
 app.use('/api/warden', require('./warden/routes'));
@@ -54,6 +73,9 @@ app.use("/api/student", require("./student/routes"));
 // Teacher Routes
 app.use("/api/teacher", require("./teacher/routes"));
 
+// Admin Routes
+app.use("/api/admin", require("./admin/routes"));
+
 app.get('/', (req, res) => res.send('BWF Server running...'));
 
 // Health check endpoint — used by uptime monitors to prevent Render free tier sleep
@@ -61,8 +83,8 @@ app.get('/health', (req, res) => res.status(200).json({ status: 'ok', timestamp:
 
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
-  require('fs').appendFileSync('debug.log', new Date().toISOString() + ' - Express Error: ' + (err.stack || err) + '\n');
-  res.status(500).json({ error: 'Server error', details: err.message, stack: err.stack });
+  try { require('fs').appendFileSync('debug.log', new Date().toISOString() + ' - Express Error: ' + (err.stack || err) + '\n'); } catch(e) {}
+  res.status(500).json({ message: 'Server error (Global): ' + err.message, stack: err.stack });
 });
 
 app.listen(PORT, () => {

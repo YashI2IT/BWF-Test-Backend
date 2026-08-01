@@ -25,7 +25,7 @@ async function saveJournal(auth_id, { title, body, date }) {
   const entry = await Journal.findOneAndUpdate(
     { auth_id, date },        // one entry per day
     { title, body },
-    { new: true, upsert: true }
+    { returnDocument: 'after', upsert: true }
   );
 
   return entry;

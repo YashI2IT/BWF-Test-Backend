@@ -22,10 +22,6 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    profilePic: {
-      type: String,
-      required: false,
-    },
     content: {
       type: String,
       required: true,
@@ -45,7 +41,7 @@ const postSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['text', 'poll', 'image', 'video'],
+      enum: ['text', 'poll'],
       default: 'text',
     },
     mediaUrl: {
@@ -53,7 +49,7 @@ const postSchema = new mongoose.Schema(
     },
     mediaType: {
       type: String,
-      enum: ['image', 'video'],
+      enum: ['image', 'video', 'pdf'],
     },
     tags: [{
       type: String,

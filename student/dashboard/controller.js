@@ -59,7 +59,7 @@ async function logMood(req, res) {
     const log = await MoodLog.findOneAndUpdate(
       { auth_id, date: today },
       { mood, last_modified: new Date() },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
 
     return res.status(200).json({ mood: log.mood, date: log.date });

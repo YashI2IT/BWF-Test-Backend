@@ -26,16 +26,6 @@ const assignmentSchema = new mongoose.Schema({
     required: true
   },
 
-  fileUrl: {
-    type: String,
-    required: false
-  },
-
-  fileType: {
-    type: String,
-    required: false
-  },
-
   // how urgent it looks on the dashboard dot: red = overdue/tomorrow, green = more time
   priority: {
     type: String,
@@ -51,6 +41,17 @@ const assignmentSchema = new mongoose.Schema({
   is_synced: {
     type: Boolean,
     default: true
+  },
+
+  fileUrl: {
+    type: String,
+    default: null
+  },
+
+  fileType: {
+    type: String,
+    enum: ["image", "video", "pdf", null],
+    default: null
   }
 
 }, { timestamps: true });

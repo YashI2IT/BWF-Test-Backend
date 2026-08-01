@@ -1,4 +1,5 @@
 const Post = require('../../warden/models/post');
+const CommunityPost = require('../../models/CommunityPost');
 const User = require('../../models/User');
 const Teacher = require('../models/teacher');
 const { uploadToCloudinary } = require('../../utils/cloudinary');
@@ -53,17 +54,59 @@ async function getPosts(req, res) {
     const { pinned } = req.query;
 
     const query = {};
+    const cpQuery = { isVerified: true }; // Only show verified community posts
     if (pinned === "true") {
       query.pinned = true;
+      cpQuery.pinned = true; // CommunityPost doesn't typically have pinned, but we'll allow it just in case
     }
     // Note: Teacher gets all posts globally since they don't have a specific hostel.
 
     const posts = await Post.find(query)
       .populate("hostelName")
       .sort({ date: -1, time: -1, createdAt: -1 })
-      .select("-__v");
+      .select("-__v")
+      .lean();
 
-    return res.status(200).json(posts.map((post) => postToResponse(post, userId)));
+    const mappedPosts = posts.map((post) => postToResponse(post, userId));
+
+    const communityPosts = await CommunityPost.find(cpQuery)
+      .sort({ createdAt: -1 })
+      .lean();
+
+    const mappedCommunityPosts = communityPosts.map(cp => {
+      const isLiked = cp.likedBy && cp.likedBy.some(v => String(v) === String(userId));
+      return {
+        _id: cp._id,
+        id: cp._id,
+        author: cp.author,
+        content: cp.content,
+        date: cp.createdAt,
+        time: cp.createdAt ? cp.createdAt.toISOString().split('T')[1].substring(0, 5) : "00:00",
+        status: cp.isVerified ? 'Approved' : 'Pending',
+        type: 'text',
+        tags: cp.category ? [cp.category] : [],
+        pollOptions: [],
+        voters: cp.likedBy ? cp.likedBy.map(uid => ({ userId: uid, optionIndex: 0 })) : [],
+        userVote: isLiked ? 0 : null,
+        creatorId: cp.userId,
+        creatorRole: cp.role,
+        hostelName: 'Community',
+        pinned: false,
+        canManage: String(cp.userId) === String(userId),
+        mediaUrl: cp.mediaUrl || null,
+        mediaType: 'image'
+      };
+    });
+
+    const allPosts = [...mappedPosts, ...mappedCommunityPosts];
+    // Sort all by date (newest first)
+    allPosts.sort((a, b) => {
+      const dateA = a.date ? new Date(a.date).getTime() : 0;
+      const dateB = b.date ? new Date(b.date).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    return res.status(200).json(allPosts);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Server error" });
@@ -239,7 +282,7 @@ async function togglePinPost(req, res) {
     const post = await Post.findOneAndUpdate(
       { _id: postId, creatorId: userId },
       { pinned: Boolean(pinned) },
-      { new: true }
+      { returnDocument: 'after' }
     );
 
     if (!post) {

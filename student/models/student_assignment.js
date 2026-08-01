@@ -19,21 +19,24 @@ const studentAssignmentSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ["not_submitted", "pending", "approved", "rejected"],
+    enum: ["todo", "student_submitted", "under_review", "verified", "pending", "approved", "rejected", "not_submitted"],
     default: "not_submitted"
-  },
-
-  submissionText: {
-    type: String,
-    default: ""
   },
 
   submittedDate: String,
 
-  fileUrl: String,
-  fileType: String,
+  rejectionNote: String,
+  
+  mediaUrl: {
+    type: String,
+    default: null
+  },
 
-  rejectionNote: String
+  mediaType: {
+    type: String,
+    enum: ["image", "video", "pdf", null],
+    default: null
+  }
 
 }, { timestamps: true });
 

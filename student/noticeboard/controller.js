@@ -27,7 +27,7 @@ async function markRead(req, res) {
     await NoticeInteraction.findOneAndUpdate(
       { auth_id, noticeId },
       { isRead: true, last_modified: new Date() },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
     return res.status(200).json({ message: 'Notice marked as read' });
   } catch (err) {
@@ -56,7 +56,7 @@ async function dismissNotice(req, res) {
     await NoticeInteraction.findOneAndUpdate(
       { auth_id, noticeId },
       { isDismissed: true, last_modified: new Date() },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
     return res.status(200).json({ message: 'Notice dismissed' });
   } catch (err) {

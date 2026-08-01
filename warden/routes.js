@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const { authenticateToken, authorizeRoles } = require('../auth/middleware');
+const upload = require('../student/community/middleware');
+const multer = require('multer');
+const memoryUpload = multer({ storage: multer.memoryStorage() });
 
 const {
   createStudent,
@@ -36,7 +39,23 @@ const {
   deleteActivity,
   deletePendingActivity,
   testCreateActivity,
+  getExpenses,
+  addExpense,
+  updateExpense,
+  deleteExpense,
+  getHostels,
 } = require('./controller');
+
+const noticesController = require('./noticesController');
+const { getDashboardStats } = require('./dashboardController');
+
+// ===== WARDEN DASHBOARD =====
+router.get(
+  '/dashboard',
+  authenticateToken,
+  authorizeRoles('warden'),
+  getDashboardStats
+);
 
 // ===== WARDEN PROFILE =====
 router.get(
@@ -51,6 +70,45 @@ router.put(
   authenticateToken,
   authorizeRoles('warden'),
   updateWardenProfile
+);
+
+// ===== HOSTELS =====
+router.get(
+  '/hostels',
+  authenticateToken,
+  authorizeRoles('warden'),
+  getHostels
+);
+
+// ===== NOTICES =====
+
+// GET ALL NOTICES
+router.get('/notices', authenticateToken, authorizeRoles('warden'), noticesController.getNotices);
+
+// CREATE NOTICE (requires multer upload)
+router.post(
+  '/notices',
+  authenticateToken,
+  authorizeRoles('warden'),
+  memoryUpload.single('image'),
+  noticesController.createNotice
+);
+
+// UPDATE NOTICE
+router.put(
+  '/notices/:noticeId',
+  authenticateToken,
+  authorizeRoles('warden'),
+  memoryUpload.single('image'),
+  noticesController.updateNotice
+);
+
+// DELETE NOTICE
+router.delete(
+  '/notices/:noticeId',
+  authenticateToken,
+  authorizeRoles('warden'),
+  noticesController.deleteNotice
 );
 
 // ===== STUDENTS =====
@@ -152,6 +210,16 @@ router.post(
   '/posts',
   authenticateToken,
   authorizeRoles('warden'),
+  (req, res, next) => {
+    upload.single('media')(req, res, (err) => {
+      if (err) {
+        console.error("Multer error:", err);
+        try { require('fs').appendFileSync('debug.log', 'Multer Error: ' + (err.stack || err) + '\n'); } catch(e) {}
+        return res.status(500).json({ message: "Upload error: " + err.message });
+      }
+      next();
+    });
+  },
   createPost
 );
 
@@ -160,6 +228,16 @@ router.put(
   '/posts/:postId',
   authenticateToken,
   authorizeRoles('warden'),
+  upload.single('media'),
+  (err, req, res, next) => {
+    if (err) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ message: 'File is too large. Maximum size is 50MB.' });
+      }
+      return res.status(400).json({ message: err.message });
+    }
+    next();
+  },
   updatePost
 );
 
@@ -243,6 +321,7 @@ router.delete(
   deleteComplaintHistory
 );
 
+
 // ===== ACTIVITIES =====
 // GET ALL
 router.get(
@@ -303,5 +382,34 @@ router.post(
 // MODERATION ROUTES
 const moderationRoutes = require('./moderation/routes');
 router.use('/moderation', moderationRoutes);
+
+// ===== EXPENSES =====
+router.get(
+  '/expenses',
+  authenticateToken,
+  authorizeRoles('warden'),
+  getExpenses
+);
+
+router.post(
+  '/expenses',
+  authenticateToken,
+  authorizeRoles('warden'),
+  addExpense
+);
+
+router.put(
+  '/expenses/:id',
+  authenticateToken,
+  authorizeRoles('warden'),
+  updateExpense
+);
+
+router.delete(
+  '/expenses/:id',
+  authenticateToken,
+  authorizeRoles('warden'),
+  deleteExpense
+);
 
 module.exports = router;

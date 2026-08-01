@@ -4,8 +4,9 @@ const activitySchema = new mongoose.Schema(
   {
     id: {
       type: Number,
-      required: true,
+      required: false,
       unique: true,
+      sparse: true,
     },
 
     title: {
@@ -24,7 +25,6 @@ const activitySchema = new mongoose.Schema(
 
     requesterRole: {
       type: String,
-      enum: ['student', 'staff', 'warden'],
       required: true,
     },
 
@@ -52,8 +52,7 @@ const activitySchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ['Pending', 'Approved', 'Rejected'],
-      default: 'Pending',
+      default: 'upcoming',
     },
 
     rejectionReason: {

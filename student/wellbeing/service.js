@@ -32,7 +32,7 @@ async function saveMood({ auth_id, mood, context, thought, reframe }) {
       last_modified: new Date()
     },
     {
-      new: true,
+      returnDocument: 'after',
       upsert: true
     }
   );

@@ -32,7 +32,7 @@ async function updateComplaintStatus(id, status) {
   return await Complaint.findByIdAndUpdate(
     id,
     { status },
-    { new: true }
+    { returnDocument: 'after' }
   );
 }
 

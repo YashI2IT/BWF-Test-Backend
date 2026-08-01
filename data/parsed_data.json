@@ -1,0 +1,4949 @@
+{
+  "students": {
+    "Sheet1": [
+      [
+        "Sr. No",
+        "Sr. No",
+        "Name of children",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        "(Jammu Home)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "1",
+        "1",
+        "Sonam Palmo",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "2",
+        "2",
+        "Bhawana",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "3",
+        "3",
+        "Rigzin",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "4",
+        "4",
+        "Bhavya",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "5",
+        "5",
+        "Sadaf",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "6",
+        "6",
+        "Nilza",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "7",
+        "7",
+        "Thinles",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "8",
+        "8",
+        "Nawang",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "9",
+        "9",
+        "Suriyah",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "10",
+        "10",
+        "Tsering",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "11",
+        "11",
+        "Sonam Angmo",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "12",
+        "12",
+        "Annu Devi",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "13",
+        "13",
+        "Diskit",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "14",
+        "14",
+        "Mepham Lamo",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "15",
+        "15",
+        "Tundup lamo",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "16",
+        "16",
+        "Lavanya Choudary",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "17",
+        "17",
+        "Archana Sharma",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "18",
+        "18",
+        "Jyoti Bala",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "19",
+        "19",
+        "Punchok chosdon",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "20",
+        "20",
+        "Tashi yanskit",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "21",
+        "21",
+        "Sanjeeta Devi",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "22",
+        "22",
+        "Jeevika",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "23",
+        "23",
+        "Yangzes",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "24",
+        "24",
+        "Stanzin",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "25",
+        "25",
+        "Madhu",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "26",
+        "26",
+        "Meenaskshi",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "27",
+        "27",
+        "Lazes",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "28",
+        "28",
+        "Shreya",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "29",
+        "29",
+        "Radhika",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "30",
+        "30",
+        "Kamran",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "31",
+        "31",
+        "Shivansh",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "32",
+        "32",
+        "Shivay",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "33",
+        "33",
+        "Aarizu",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "34",
+        "34",
+        "Shanu Devi",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "35",
+        "35",
+        "Hoor",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "36",
+        "36",
+        "Varsha",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "37",
+        null,
+        "(Beerwah)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "38",
+        "1",
+        "Gazala sikandar ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "39",
+        "2",
+        "Lubna ali",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "40",
+        "3",
+        "khair_ul_Anim",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "41",
+        "4",
+        "insha Akther",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "42",
+        "5",
+        "Tanveera",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "43",
+        "6",
+        "rayeesa Nazir",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "44",
+        "7",
+        "Rabia ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "45",
+        "8",
+        "Asmat Gani",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "46",
+        "9",
+        "Rutba ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "47",
+        "10",
+        "Rahila shabir",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "48",
+        "11",
+        "seerat ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "49",
+        "12",
+        "sadiya ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "50",
+        "13",
+        "Haya Nazir ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "51",
+        "14",
+        "Humaira",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "52",
+        "15",
+        "Azra parviz ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "53",
+        "16",
+        "kushboo rahim ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "54",
+        "17",
+        "Asmat mohiudin",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "55",
+        "18",
+        "kulsooma",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "56",
+        "19",
+        "Tawfeeqa Bano",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "57",
+        "20",
+        "safeena asad",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "58",
+        "21",
+        "Aira",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "59",
+        "22",
+        "shahida ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "60",
+        "23",
+        "ishrat shafi",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "61",
+        "24",
+        "kulsooma shafi",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "62",
+        "25",
+        "zainab  ali",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "63",
+        "26",
+        "Rabiya  Mohiudin",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "64",
+        "27",
+        "zanib hilal",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "65",
+        "28",
+        "Misrat Manzoor",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "66",
+        "29",
+        "Hibaba bilal",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "67",
+        "30",
+        "shabnum mushtaq",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "68",
+        "31",
+        "Misba Mushtaq",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "69",
+        null,
+        "(Anantnag)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "70",
+        "1",
+        "Munaza jan ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "71",
+        "2",
+        "Yasmeena M",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "72",
+        "3",
+        "Yasmeena N",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "73",
+        "4",
+        "Sufiya",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "74",
+        "5",
+        "Iqra",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "75",
+        "6",
+        "Sehru",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "76",
+        "7",
+        "Salma",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "77",
+        "8",
+        "Mehak",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "78",
+        "9",
+        "Rehana",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "79",
+        "10",
+        "Shaziya",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "80",
+        "11",
+        "Seerat",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "81",
+        "12",
+        "Mariyam",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "82",
+        "13",
+        "Wasika",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "83",
+        "14",
+        "Rifat",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "84",
+        "15",
+        "Tasmeena",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "85",
+        "16",
+        "Nageena akther",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "86",
+        "17",
+        "Parveena akther",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "87",
+        "18",
+        "Munaza jan",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "88",
+        "19",
+        "Salfie",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "89",
+        "20",
+        "Hoorain",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "90",
+        "21",
+        "Nasreena akther ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "91",
+        "22",
+        "Sehrish jan",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "92",
+        "23",
+        "Nusrat jan",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "93",
+        "24",
+        "Naseera jan",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "94",
+        "25",
+        "Tobia Ishfaq",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "95",
+        "26",
+        "Kushboo jan ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "96",
+        "27",
+        "Aamina jan",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "97",
+        "28",
+        "Abru (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "98",
+        "29",
+        "Raziya jan (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "99",
+        "30",
+        "Rashida jan (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "100",
+        "31",
+        "Tahira jan (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "101",
+        "32",
+        "Shabnum jan (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "102",
+        "33",
+        "Sehrish jan (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "103",
+        "34",
+        "Andeeba",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        "(Kupwara home)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "104",
+        "1",
+        "Nida Mir ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "105",
+        "2",
+        "Muskan Bashir",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "106",
+        "3",
+        "Saniya",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "107",
+        "4",
+        "Mehreena",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "108",
+        "5",
+        "Samreena",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "109",
+        "6",
+        "Mehvish",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "110",
+        "7",
+        "Nasreena",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "111",
+        "8",
+        "Afreena",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "112",
+        "9",
+        "Shahzada",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "113",
+        "10",
+        "Bisma ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "114",
+        "11",
+        "Rabiya ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "115",
+        "12",
+        "Sufoora",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "116",
+        "13",
+        "Rutba ",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "117",
+        "14",
+        "Seerat Khan",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "118",
+        "15",
+        "Arbeena",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "119",
+        "16",
+        "Fizrat",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "120",
+        "17",
+        "Tanzeela",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "121",
+        "18",
+        "Seerat R",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "122",
+        "19",
+        "Ronak",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "123",
+        "20",
+        "Uzma",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "124",
+        "21",
+        "Midhat",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "125",
+        "22",
+        "Zunain",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "126",
+        "23",
+        "Areeba",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "127",
+        "24",
+        "Faiqa",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "128",
+        "25",
+        "Toiba",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "129",
+        "26",
+        "Shaima",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "130",
+        "27",
+        "Sadaiya",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "131",
+        "28",
+        "Moomina",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "132",
+        "29",
+        "Ulfat",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "133",
+        "30",
+        "Shaziya",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "134",
+        "31",
+        "Sufaya sultan(new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "135",
+        "32",
+        "seerat Sultan (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "136",
+        "33",
+        "Sania Sultan (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "137",
+        "34",
+        "Romana Sultan (new student)",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    ]
+  },
+  "anantnag": {
+    "Sheet1": [
+      [
+        "MONTHLY/DAILY REQUIREMENT OF JAMMU HOME",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Food Requirements ",
+        "Status",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Paneer",
+        "weekly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Fruits",
+        "Weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Namkeen Tea",
+        "weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "utensil Soap",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Rice",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Dal",
+        "monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Vegetables",
+        "weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "salad/ sweets",
+        "Alternative days",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Roti/Chappati",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Milk",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Species (Masala)",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cooking Oil",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Salt",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Tea Lapton",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Sugar",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Biscuits",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Turmeric powder ",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Ras",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Namkeen(Snacks)",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "chilli powder ",
+        "monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cosmetics/ Toiletries",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cosmetic items",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Soaps/Detergent",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Phenyl/ Floor cleaner",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Tooth Paste/ Tooth Brush",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Harpic",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Broom/wiper",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shampoo",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Hair oil",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Body lotion",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shoe Polish/shoe brush",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Undergarments/Other items",
+        "yearly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "whispher",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shaver",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Hand Wash",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "suits",
+        "yearly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Medicines/ Doctor fee",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Any time when needed",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Stationary",
+        "when required(new session)",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Books",
+        "Yearly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Notebook/pencil/pen/sharpner/eraser/rough notebook",
+        "weekly/Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "colors/drawing book/Highlighter",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Printing Notes/paper A4 size sheet bundle",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Gas Cylinder",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Electricity bill/ Internet/Recharge (Home sim)",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Miscellaneous / Other items",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Fare",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "school fare",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        "l",
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "Requirements": [
+      [
+        "Anantnag Home Requirements",
+        null,
+        null
+      ],
+      [
+        "Sr.No",
+        "Food Items ",
+        "Monthly  Requirement"
+      ],
+      [
+        "1",
+        "Rice ",
+        "210kg"
+      ],
+      [
+        "2",
+        "Sugar",
+        "10 kg"
+      ],
+      [
+        "3",
+        "Salt",
+        "20 kg"
+      ],
+      [
+        "4",
+        "Lapton Tea",
+        "3 kg"
+      ],
+      [
+        "5",
+        "Namkeen Tea ",
+        "5kg"
+      ],
+      [
+        "6",
+        "Haldi",
+        "5 kg"
+      ],
+      [
+        "7",
+        "Laal Mirchi Powder",
+        "5 kg"
+      ],
+      [
+        "8",
+        "cooking oil",
+        "1 ten(15l)"
+      ],
+      [
+        "9",
+        "Lemon",
+        "5kg"
+      ],
+      [
+        "10",
+        "khewah masala",
+        "1 small bottle "
+      ],
+      [
+        "11",
+        "garam masala ",
+        "500 grams"
+      ],
+      [
+        "12",
+        "Rajmah dal",
+        "5 kg"
+      ],
+      [
+        "13",
+        "black chana dal",
+        "5 kg"
+      ],
+      [
+        "14",
+        "yellow chana dal",
+        "5 kg"
+      ],
+      [
+        "15",
+        "moongi dal",
+        "5 kg"
+      ],
+      [
+        "16",
+        "biscuit ",
+        "9 packets (12pcs/pack)"
+      ],
+      [
+        "17",
+        "Egg ",
+        "3box(210 eggs)"
+      ],
+      [
+        "18",
+        "Butter ",
+        "6 packets(1kg)"
+      ],
+      [
+        "19",
+        "Mix masala ( all kinds spices)",
+        "1 packet/masala "
+      ],
+      [
+        "20",
+        "Fruits ",
+        "weekly "
+      ],
+      [
+        "21",
+        "Paneer ",
+        "weekly "
+      ],
+      [
+        "22",
+        "chicken ",
+        "weekly "
+      ],
+      [
+        "23",
+        "Bartan soap ",
+        "12 piece (20rs)"
+      ],
+      [
+        "24",
+        "Brush /scruber",
+        "6 piece "
+      ],
+      [
+        "Sr. No",
+        "Cosmetics",
+        "Monthly Requirement"
+      ],
+      [
+        "1",
+        "body lotion ",
+        "38 small bottle"
+      ],
+      [
+        "2",
+        "hair oil",
+        "38 small bottle"
+      ],
+      [
+        "3",
+        "Bathing soap",
+        "38 piece "
+      ],
+      [
+        "4",
+        "Cloth Soap",
+        "20 piece "
+      ],
+      [
+        "5",
+        "talc powder  ",
+        "38 small bottle "
+      ],
+      [
+        "6",
+        "Shampoo",
+        "500pcs"
+      ],
+      [
+        "7",
+        "handwash liquid",
+        "2 bottle (big)"
+      ],
+      [
+        "8",
+        "surf excel",
+        "10 kg"
+      ],
+      [
+        "9",
+        "colgate",
+        "38 small "
+      ],
+      [
+        "10",
+        "tooth brush ",
+        "38 piece (6months)"
+      ],
+      [
+        "11",
+        "whisper",
+        "40 packet small "
+      ],
+      [
+        "12",
+        "shavers",
+        "25"
+      ],
+      [
+        "13",
+        "toilet cleaner(harpic)",
+        "2 bottle"
+      ],
+      [
+        "14",
+        "tile cleaner",
+        "2 bottle"
+      ],
+      [
+        "15",
+        "broom(small)",
+        "3piece "
+      ],
+      [
+        "16",
+        "broom (big)",
+        "6pcs(2 months)"
+      ],
+      [
+        "17",
+        "Toilet brush",
+        "4 yearly"
+      ],
+      [
+        "18",
+        "Toilet Broom",
+        "4yearly"
+      ],
+      [
+        "19",
+        "Slipers washroom",
+        "4 yearly"
+      ],
+      [
+        "20",
+        "shoe polish ",
+        "9 pcs"
+      ],
+      [
+        "21",
+        " washroom refresher(balls)",
+        "5 pkt "
+      ],
+      [
+        "22",
+        "kitchen slipers ",
+        "1yearly"
+      ],
+      [
+        "23",
+        "scrub utensils",
+        "5 piece"
+      ],
+      [
+        "Sr. No",
+        "Stationary items",
+        "yearly"
+      ],
+      [
+        "1",
+        " Long register single line ",
+        "400 copies "
+      ],
+      [
+        "2",
+        "Math copy  (For small children)",
+        "500 copies "
+      ],
+      [
+        "3",
+        " Four-line copy ",
+        "200 copies "
+      ],
+      [
+        "4",
+        " Graph notebooks ",
+        "50"
+      ],
+      [
+        "5",
+        "Spiral notebook",
+        "50"
+      ],
+      [
+        "6",
+        " Rough notebook",
+        "200"
+      ],
+      [
+        "7",
+        " Pen (Blue and Black writo meter)",
+        "3000"
+      ],
+      [
+        "8",
+        " Pencil ",
+        "3000"
+      ],
+      [
+        "9",
+        " Eraser",
+        "100"
+      ],
+      [
+        "10",
+        " Sharpener",
+        "100"
+      ],
+      [
+        "11",
+        " Assignment sheets",
+        "100"
+      ],
+      [
+        "12",
+        " A4 size papers white ",
+        "6bandles"
+      ],
+      [
+        "13",
+        " Glitter paper",
+        "100"
+      ],
+      [
+        "14",
+        "Chart sheet (white big size)",
+        "200"
+      ],
+      [
+        "15",
+        "Chart sheet (coloured)",
+        "250"
+      ],
+      [
+        "16",
+        " Sketch pens",
+        "100"
+      ],
+      [
+        "17",
+        "Pencil colour",
+        "100"
+      ],
+      [
+        "18",
+        " Water colour ",
+        "50"
+      ],
+      [
+        "19",
+        " Sparkle pens",
+        "50"
+      ],
+      [
+        "20",
+        " Wax color",
+        "50"
+      ],
+      [
+        "21",
+        "Sparkle tape/selo tape ",
+        "10"
+      ],
+      [
+        "22",
+        " Calculator ",
+        "20 small"
+      ],
+      [
+        "23",
+        "one line notebook",
+        "500"
+      ],
+      [
+        "24",
+        "geometry box",
+        "30"
+      ],
+      [
+        "25",
+        "highlighter",
+        "10 packet "
+      ],
+      [
+        "26",
+        "Scale ",
+        "5(30cm)"
+      ],
+      [
+        "27",
+        "ruler ",
+        "50(15cm)"
+      ],
+      [
+        "28",
+        "Drawing book",
+        "50"
+      ],
+      [
+        "29",
+        "stapler with pins",
+        "3 stapler with 30 box pins "
+      ],
+      [
+        "30",
+        "Envelope (small&big)",
+        "50"
+      ],
+      [
+        "31",
+        "files (students &office work)",
+        "50"
+      ],
+      [
+        "32",
+        "sticky notes pad ",
+        "10"
+      ],
+      [
+        "33",
+        "text book for all students (school)",
+        "as per their class "
+      ],
+      [
+        "34",
+        "fevistick /glue ",
+        "5 box (12pcs)"
+      ],
+      [
+        "35",
+        "carbon paper ",
+        "1"
+      ],
+      [
+        "36",
+        " scissor ",
+        "3"
+      ],
+      [
+        "37",
+        "name slip ",
+        "100"
+      ],
+      [
+        "38",
+        "photo printing  paper ",
+        "100"
+      ],
+      [
+        "39",
+        "Map book",
+        "100"
+      ],
+      [
+        "40",
+        "school practile book ",
+        "once in year (as no of student in class)"
+      ],
+      [
+        "Sr. No",
+        "Uniform",
+        "Requirement"
+      ],
+      [
+        "98",
+        "I set uniform (school )",
+        "once in year "
+      ],
+      [
+        "99",
+        "socks ",
+        "once in  6 months"
+      ],
+      [
+        "100",
+        "Abaya",
+        "20"
+      ],
+      [
+        "101",
+        "hijab ",
+        "20"
+      ],
+      [
+        "102",
+        "Dresses",
+        null
+      ],
+      [
+        "103",
+        "suits /frocks  dress",
+        "2for each person (twice in year)"
+      ],
+      [
+        "104",
+        "socks (winter)",
+        "2 pair each person (once in year)"
+      ],
+      [
+        "105",
+        "Shoes school",
+        "38"
+      ],
+      [
+        "106",
+        "winter shoes",
+        "38"
+      ],
+      [
+        "107",
+        "slipper",
+        "38"
+      ],
+      [
+        "109",
+        "winter dress ",
+        "39"
+      ],
+      [
+        "110",
+        "winter sweaters",
+        "39"
+      ],
+      [
+        "111",
+        "body warmer",
+        "39"
+      ],
+      [
+        "112",
+        "school bags",
+        "10"
+      ],
+      [
+        "113",
+        "water bottles",
+        "39"
+      ],
+      [
+        "114",
+        "undergarments",
+        "once in 06 months "
+      ],
+      [
+        "115",
+        "winter stool",
+        "39"
+      ],
+      [
+        "116",
+        "school stool ",
+        "39"
+      ]
+    ],
+    "Expenses": [
+      [
+        "Anantnag Home expenses (2025)",
+        null,
+        null
+      ],
+      [
+        "Sr No",
+        "Month",
+        "Amount"
+      ],
+      [
+        "1",
+        "Jan 25",
+        "99370"
+      ],
+      [
+        "2",
+        "Feb 25",
+        "94683"
+      ],
+      [
+        "3",
+        "Mar25",
+        "1333793"
+      ],
+      [
+        "4",
+        "April",
+        "136335"
+      ],
+      [
+        "5",
+        "May",
+        "147708"
+      ],
+      [
+        "6",
+        "June",
+        "135314"
+      ],
+      [
+        "7",
+        "July",
+        "177714"
+      ],
+      [
+        "8",
+        "Aug",
+        "174214"
+      ],
+      [
+        "9",
+        "Sep",
+        "175907"
+      ],
+      [
+        "10",
+        "Oct",
+        "200759"
+      ],
+      [
+        "11",
+        "Nov",
+        "189580"
+      ],
+      [
+        "12",
+        "Dec",
+        "131231"
+      ],
+      [
+        "Total :2996608",
+        null,
+        null
+      ]
+    ]
+  },
+  "kupwara": {
+    "Sheet1": [
+      [
+        "MONTHLY/DAILY REQUIREMENT OF JAMMU HOME",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Food Requirements ",
+        "Status",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Paneer",
+        "weekly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Fruits",
+        "Weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Namkeen Tea",
+        "weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "utensil Soap",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Rice",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Dal",
+        "monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Vegetables",
+        "weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "salad/ sweets",
+        "Alternative days",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Roti/Chappati",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Milk",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Species (Masala)",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cooking Oil",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Salt",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Tea Lapton",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Sugar",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Biscuits",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Turmeric powder ",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Ras",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Namkeen(Snacks)",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "chilli powder ",
+        "monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cosmetics/ Toiletries",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cosmetic items",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Soaps/Detergent",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Phenyl/ Floor cleaner",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Tooth Paste/ Tooth Brush",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Harpic",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Broom/wiper",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shampoo",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Hair oil",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Body lotion",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shoe Polish/shoe brush",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Undergarments/Other items",
+        "yearly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "whispher",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shaver",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Hand Wash",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "suits",
+        "yearly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Medicines/ Doctor fee",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Any time when needed",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Stationary",
+        "when required(new session)",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Books",
+        "Yearly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Notebook/pencil/pen/sharpner/eraser/rough notebook",
+        "weekly/Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "colors/drawing book/Highlighter",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Printing Notes/paper A4 size sheet bundle",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Gas Cylinder",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Electricity bill/ Internet/Recharge (Home sim)",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Miscellaneous / Other items",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Fare",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "school fare",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        "l",
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "Requirements": [
+      [
+        "Kupwara Home Requirements",
+        null,
+        null
+      ],
+      [
+        "Sr.No",
+        "Food Items ",
+        "Monthly  Requirement"
+      ],
+      [
+        "1",
+        "Rice ",
+        "210kg"
+      ],
+      [
+        "2",
+        "Sugar",
+        "10 kg"
+      ],
+      [
+        "3",
+        "Salt",
+        "18kg"
+      ],
+      [
+        "4",
+        "Lapton Tea",
+        "4 kg"
+      ],
+      [
+        "5",
+        "Namkeen Tea ",
+        "5kg"
+      ],
+      [
+        "6",
+        "Haldi",
+        "5 kg"
+      ],
+      [
+        "7",
+        "Laal Mirchi Powder",
+        "5 kg"
+      ],
+      [
+        "8",
+        "cooking oil",
+        "1 ten(15l)"
+      ],
+      [
+        "9",
+        "Lemon",
+        "5kg"
+      ],
+      [
+        "10",
+        "khewah masala",
+        "2 small bottle "
+      ],
+      [
+        "11",
+        "Garam masala ",
+        "500 grams"
+      ],
+      [
+        "12",
+        "Rajmah dal",
+        "5 kg"
+      ],
+      [
+        "13",
+        "Black chana dal",
+        "5 kg"
+      ],
+      [
+        "14",
+        "Yellow chana dal",
+        "5 kg"
+      ],
+      [
+        "15",
+        "Moong dal",
+        "5 kg"
+      ],
+      [
+        "16",
+        "Biscuit ",
+        "10 packets (12pcs/pack)"
+      ],
+      [
+        "17",
+        "Egg ",
+        "3box(210 eggs)"
+      ],
+      [
+        "18",
+        "Butter ",
+        "5 packets(1kg)"
+      ],
+      [
+        "19",
+        "Mix masala ",
+        "2 packet/masala "
+      ],
+      [
+        "20",
+        "Fruits ",
+        "weekly (4kg)"
+      ],
+      [
+        "21",
+        "Paneer ",
+        "weekly (3kg)"
+      ],
+      [
+        "22",
+        "Chicken ",
+        "Weekly(5kg)"
+      ],
+      [
+        "23",
+        "Bartan soap ",
+        "12 piece (10rs)"
+      ],
+      [
+        "24",
+        "Brush /scruber",
+        "6 piece "
+      ],
+      [
+        "Sr. No",
+        "Cosmetics",
+        "Requirements"
+      ],
+      [
+        "1",
+        "Body lotion ",
+        "6 big bottles"
+      ],
+      [
+        "2",
+        "Hair oil",
+        "6Big bottles"
+      ],
+      [
+        "3",
+        "Bathing soap",
+        "40 pieces"
+      ],
+      [
+        "4",
+        "Clothing  Soap",
+        "20 pieces"
+      ],
+      [
+        "5",
+        "Talc powder  ",
+        "6 Big bottles"
+      ],
+      [
+        "6",
+        "Shampoo",
+        "500pcs"
+      ],
+      [
+        "7",
+        "Handwash liquid",
+        "2 bottle (big)"
+      ],
+      [
+        "8",
+        "surf excel",
+        "10 kg"
+      ],
+      [
+        "9",
+        "Colgate",
+        "38 small "
+      ],
+      [
+        "10",
+        "Tooth brush ",
+        "35 pieces (6months)"
+      ],
+      [
+        "11",
+        "whisper",
+        "40 packet small "
+      ],
+      [
+        "12",
+        "Shavers",
+        "25"
+      ],
+      [
+        "13",
+        "Toilet cleaner(harpic)",
+        "2 bottle"
+      ],
+      [
+        "14",
+        "Tile cleaner",
+        "2 bottle"
+      ],
+      [
+        "15",
+        "Broom (big)",
+        "6pcs(2 months)"
+      ],
+      [
+        "16",
+        "Toilet brush",
+        "4 yearly"
+      ],
+      [
+        "17",
+        "Toilet Broom",
+        "4yearly"
+      ],
+      [
+        "18",
+        "Slipers washroom",
+        "4 yearly"
+      ],
+      [
+        "19",
+        "Shoe polish ",
+        "4pcs"
+      ],
+      [
+        "20",
+        "Washroom refresher(balls)",
+        "4 pkt "
+      ],
+      [
+        "21",
+        "kitchen slippers ",
+        "1yearly"
+      ],
+      [
+        "Sr. No",
+        "Stationary items",
+        "yearly"
+      ],
+      [
+        "1",
+        " Long register single line ",
+        "400 copies "
+      ],
+      [
+        "2",
+        "Math copy  (For small children)",
+        "500 copies "
+      ],
+      [
+        "3",
+        " Four-line copy ",
+        "200 copies "
+      ],
+      [
+        "4",
+        " Graph notebooks ",
+        "50"
+      ],
+      [
+        "5",
+        "Spiral notebook",
+        "50"
+      ],
+      [
+        "6",
+        " Rough notebook",
+        "200"
+      ],
+      [
+        "7",
+        " Pen (Blue and Black writo meter)",
+        "3000"
+      ],
+      [
+        "8",
+        " Pencil ",
+        "3000"
+      ],
+      [
+        "9",
+        " Eraser",
+        "100"
+      ],
+      [
+        "10",
+        " Sharpener",
+        "100"
+      ],
+      [
+        "11",
+        " Assignment sheets",
+        "100"
+      ],
+      [
+        "12",
+        " A4 size papers white ",
+        "6bandles"
+      ],
+      [
+        "13",
+        " Glitter paper",
+        "100"
+      ],
+      [
+        "14",
+        "Chart sheet (white big size)",
+        "200"
+      ],
+      [
+        "15",
+        "Chart sheet (coloured)",
+        "250"
+      ],
+      [
+        "16",
+        " Sketch pens",
+        "100"
+      ],
+      [
+        "17",
+        "Pencil colour",
+        "100"
+      ],
+      [
+        "18",
+        " Water colour ",
+        "50"
+      ],
+      [
+        "19",
+        " Sparkle pens",
+        "50"
+      ],
+      [
+        "20",
+        " Wax color",
+        "50"
+      ],
+      [
+        "21",
+        "Sparkle tape/selo tape ",
+        "10"
+      ],
+      [
+        "22",
+        " Calculator ",
+        "10 Small"
+      ],
+      [
+        "23",
+        "One line notebook",
+        "500"
+      ],
+      [
+        "24",
+        "geometry box",
+        "30"
+      ],
+      [
+        "25",
+        "Highlighter",
+        "10 packet "
+      ],
+      [
+        "26",
+        "Scale ",
+        "5(30cm)"
+      ],
+      [
+        "27",
+        "Ruler ",
+        "50(15cm)"
+      ],
+      [
+        "28",
+        "Drawing book",
+        "50"
+      ],
+      [
+        "29",
+        "Stapler pins",
+        " 30 box pins "
+      ],
+      [
+        "30",
+        "Envelope (small&big)",
+        "50"
+      ],
+      [
+        "31",
+        "files (students &office work)",
+        "50"
+      ],
+      [
+        "32",
+        "sticky notes pad ",
+        "10"
+      ],
+      [
+        "33",
+        "text book for all students (school)",
+        "as per their class "
+      ],
+      [
+        "34",
+        "fevistick /glue ",
+        "5 box (12pcs)"
+      ],
+      [
+        "35",
+        "carbon paper ",
+        "1"
+      ],
+      [
+        "36",
+        " scissor ",
+        "3"
+      ],
+      [
+        "37",
+        "name slip ",
+        "100"
+      ],
+      [
+        "38",
+        "photo printing  paper ",
+        "100"
+      ],
+      [
+        "39",
+        "Map book",
+        "100"
+      ],
+      [
+        "40",
+        "school practile book ",
+        "once in year (as no of student in class)"
+      ],
+      [
+        "Sr. No",
+        "Uniform",
+        "Requirements"
+      ],
+      [
+        "1",
+        "I set uniform (school )",
+        "once in year "
+      ],
+      [
+        "2",
+        "socks ",
+        "once in  6 months"
+      ],
+      [
+        "3",
+        "Abaya",
+        "20"
+      ],
+      [
+        "4",
+        "Hijab ",
+        "20"
+      ],
+      [
+        "5",
+        "Dresses",
+        null
+      ],
+      [
+        "6",
+        "suits /frocks  dress",
+        "2for each person (twice in year)"
+      ],
+      [
+        "7",
+        "socks (winter)",
+        "2 pair each person (once in year)"
+      ],
+      [
+        "8",
+        "Shoes school",
+        "38"
+      ],
+      [
+        "9",
+        "winter shoes",
+        "38"
+      ],
+      [
+        "10",
+        "slipper",
+        "38"
+      ],
+      [
+        "11",
+        "winter stuff",
+        null
+      ],
+      [
+        "12",
+        "winter dress ",
+        "39"
+      ],
+      [
+        "13",
+        "winter sweaters",
+        "39"
+      ],
+      [
+        "14",
+        "body warmer",
+        "39"
+      ],
+      [
+        "15",
+        "school bags",
+        "10"
+      ],
+      [
+        "16",
+        "water bottles",
+        "39"
+      ],
+      [
+        "17",
+        "undergarments",
+        "once in 06 months "
+      ],
+      [
+        "18",
+        "winter stool",
+        "39"
+      ],
+      [
+        "19",
+        "school stool ",
+        "39"
+      ]
+    ],
+    "Expenses": [
+      [
+        "Kupwara Home Expenses (2025)",
+        null,
+        null
+      ],
+      [
+        "Sr. No",
+        "Month",
+        "Expenditure "
+      ],
+      [
+        "1",
+        "January ",
+        "61000"
+      ],
+      [
+        "2",
+        "February ",
+        "61000"
+      ],
+      [
+        "3",
+        "March",
+        "160822"
+      ],
+      [
+        "4",
+        "April ",
+        "155240"
+      ],
+      [
+        "5",
+        "May ",
+        "147174"
+      ],
+      [
+        "6",
+        "june",
+        "116647"
+      ],
+      [
+        "7",
+        "july",
+        "136115"
+      ],
+      [
+        "8",
+        "August ",
+        "145784"
+      ],
+      [
+        "9",
+        "September ",
+        "92882"
+      ],
+      [
+        "10",
+        "October ",
+        "154681"
+      ],
+      [
+        "11",
+        "November ",
+        "153868"
+      ],
+      [
+        "12",
+        "December ",
+        "146051"
+      ],
+      [
+        null,
+        "Total amount ",
+        "1531264"
+      ]
+    ]
+  },
+  "jammu": {
+    "Sheet1": [
+      [
+        "MONTHLY/DAILY REQUIREMENT OF JAMMU HOME",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Food Requirements ",
+        "Status",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Paneer",
+        "weekly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Fruits",
+        "Weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Namkeen Tea",
+        "weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "utensil Soap",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Rice",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Dal",
+        "monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Vegetables",
+        "weekly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "salad/ sweets",
+        "Alternative days",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Roti/Chappati",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Milk",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Species (Masala)",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cooking Oil",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Salt",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Tea Lapton",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Sugar",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Biscuits",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Turmeric powder ",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Ras",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Namkeen(Snacks)",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "chilli powder ",
+        "monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cosmetics/ Toiletries",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Cosmetic items",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Soaps/Detergent",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Phenyl/ Floor cleaner",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Tooth Paste/ Tooth Brush",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Harpic",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Broom/wiper",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shampoo",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Hair oil",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Body lotion",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shoe Polish/shoe brush",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Undergarments/Other items",
+        "yearly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "whispher",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Shaver",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Hand Wash",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "suits",
+        "yearly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Medicines/ Doctor fee",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Any time when needed",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Stationary",
+        "when required(new session)",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Books",
+        "Yearly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Notebook/pencil/pen/sharpner/eraser/rough notebook",
+        "weekly/Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "colors/drawing book/Highlighter",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Printing Notes/paper A4 size sheet bundle",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Gas Cylinder",
+        "Monthly ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Electricity bill/ Internet/Recharge (Home sim)",
+        "Monthly",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "Miscellaneous / Other items",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        " Fare",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "school fare",
+        "Daily ",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        "l",
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "Requirements": [
+      [
+        "Jammu Home Requirements",
+        null,
+        null
+      ],
+      [
+        "Sr.No",
+        "Food Items ",
+        "Monthly  Requirement"
+      ],
+      [
+        "1",
+        "Rice ",
+        "120 kg"
+      ],
+      [
+        "2",
+        "Sugar",
+        "50 kg"
+      ],
+      [
+        "3",
+        "Salt",
+        "50 kg"
+      ],
+      [
+        "4",
+        "Lapton Tea",
+        "10 kg"
+      ],
+      [
+        "5",
+        "Namkeen Tea ",
+        "3 kg"
+      ],
+      [
+        "6",
+        "Haldi",
+        "10 kg"
+      ],
+      [
+        "7",
+        "Laal Mirchi Powder",
+        "10 kg"
+      ],
+      [
+        "8",
+        "Mirchi Green ",
+        "5 kg"
+      ],
+      [
+        "9",
+        "Cooking Oil",
+        "2 tin"
+      ],
+      [
+        "10",
+        "Sabudana ",
+        "60 kg"
+      ],
+      [
+        "11",
+        "Poha ",
+        "60 kg"
+      ],
+      [
+        "12",
+        "Dalia ",
+        "50 kg"
+      ],
+      [
+        "13",
+        "Sooji",
+        "10 kg ( summer)  50 kg (winter)"
+      ],
+      [
+        "14",
+        "Besan",
+        "5 kg"
+      ],
+      [
+        "15",
+        "Dalda Ghee",
+        "15 kg ( summer)  25 kg (winter)"
+      ],
+      [
+        "16",
+        "Aata",
+        "100 kg"
+      ],
+      [
+        "17",
+        "Lemon",
+        "5 kg"
+      ],
+      [
+        "18",
+        "soanf ",
+        "2kg"
+      ],
+      [
+        "19",
+        "khewah masala",
+        "2kg"
+      ],
+      [
+        "20",
+        "garam masala",
+        "3kg"
+      ],
+      [
+        "21",
+        "Rajmah dal",
+        "30kg"
+      ],
+      [
+        "22",
+        "Black chana dal",
+        "30kg"
+      ],
+      [
+        "23",
+        "maa dal",
+        "30kg"
+      ],
+      [
+        "24",
+        "yellow chana dal",
+        "30kg"
+      ],
+      [
+        "25",
+        "moongi dal ",
+        "30kg"
+      ],
+      [
+        "26",
+        "green moong dal",
+        "30kg"
+      ],
+      [
+        "27",
+        "white chana dal",
+        "30kg"
+      ],
+      [
+        "28",
+        "uradh dal ",
+        "30kg"
+      ],
+      [
+        "29",
+        "pink masoor dal",
+        "30kg"
+      ],
+      [
+        "30",
+        "coconut",
+        "10kg"
+      ],
+      [
+        "31",
+        "mixture (namkeen)",
+        "5kg"
+      ],
+      [
+        "32",
+        "Maggie",
+        "5box"
+      ],
+      [
+        "33",
+        "bisciut ",
+        "500 piece"
+      ],
+      [
+        "34",
+        "pickle ",
+        "5 bottle"
+      ],
+      [
+        "35",
+        "rusk",
+        "50 pavket"
+      ],
+      [
+        "36",
+        "Munch Chocolate",
+        "5 box"
+      ],
+      [
+        "37",
+        "Mix masala ( all kinds spices)",
+        "2 kg"
+      ],
+      [
+        "38",
+        "Fruits (Seasonal)",
+        "4 times (once in a week)"
+      ],
+      [
+        "39",
+        "Paneer  5kg",
+        "4 times (once in a week)"
+      ],
+      [
+        "40",
+        "vegetables (seasonal)",
+        "8 times ( twice in a week) summer 4 times in winter (once in a week)"
+      ],
+      [
+        "Sr. No",
+        "Cosmetics",
+        "Requirements"
+      ],
+      [
+        "1",
+        "body lotion ",
+        "5 bottle"
+      ],
+      [
+        "2",
+        "hair oil",
+        "10 bottle"
+      ],
+      [
+        "3",
+        "Bathing soap",
+        "100 (in summer per person 2 ) 50 in winter"
+      ],
+      [
+        "4",
+        "Cloth Soap",
+        "30 piece "
+      ],
+      [
+        "5",
+        "talc powder  ",
+        "5 bottle"
+      ],
+      [
+        "6",
+        "Shampoo",
+        "2 box"
+      ],
+      [
+        "7",
+        "handwash liquid",
+        "10 bottle"
+      ],
+      [
+        "8",
+        "surf excel",
+        "30 kg"
+      ],
+      [
+        "9",
+        "colgate",
+        "10"
+      ],
+      [
+        "10",
+        "tooth brush ",
+        "50 (once in three months)"
+      ],
+      [
+        "11",
+        "whisper",
+        "150 pieces "
+      ],
+      [
+        "12",
+        "phynile ",
+        "10 bottle"
+      ],
+      [
+        "13",
+        "toilet cleaner",
+        "10 bottle"
+      ],
+      [
+        "14",
+        "tile cleaner",
+        "10 bottle"
+      ],
+      [
+        "15",
+        "Coolin Glass cleaner",
+        "30 bottle"
+      ],
+      [
+        "16",
+        "match box",
+        "10box  "
+      ],
+      [
+        "17",
+        "dhoop",
+        "25 packet"
+      ],
+      [
+        "18",
+        "Agarvatti",
+        "25 packets"
+      ],
+      [
+        "19",
+        "Kapoor",
+        "10 small pack"
+      ],
+      [
+        "20",
+        "cotton wicks ",
+        "10 pack"
+      ],
+      [
+        "21",
+        "shoe polish ",
+        "10"
+      ],
+      [
+        "22",
+        "shoe brush ",
+        "5"
+      ],
+      [
+        "23",
+        "utensils soap ",
+        "30 piece"
+      ],
+      [
+        "24",
+        "scrub utensils",
+        "30 piece"
+      ],
+      [
+        "25",
+        "wiper",
+        "24 piece (twice in a year)"
+      ],
+      [
+        "26",
+        "Broom",
+        "24 piece (twice in a year)"
+      ],
+      [
+        "27",
+        "Toilet brush",
+        "24( twice in a year)"
+      ],
+      [
+        "28",
+        "Toilet Broom",
+        "24 (Twice in a year)"
+      ],
+      [
+        "29",
+        "Slipers washroom",
+        " 4(Once in a year )"
+      ],
+      [
+        "30",
+        "phynile balls",
+        "10 pkt"
+      ],
+      [
+        "31",
+        "kitchen slipers ",
+        "3 (once in year)"
+      ],
+      [
+        "Sr. No",
+        "Stationary items",
+        "Requirements"
+      ],
+      [
+        "1",
+        " Long register single line ",
+        "1500(twice yearly)"
+      ],
+      [
+        "2",
+        "Math copy  (For small children)",
+        "1500(twice yearly)"
+      ],
+      [
+        "3",
+        " Four-line copy ",
+        "1000(twice yearly)"
+      ],
+      [
+        "4",
+        " Graph notebooks ",
+        "100"
+      ],
+      [
+        "5",
+        "Spiral notebook",
+        "2500 (twice yearly)"
+      ],
+      [
+        "6",
+        " Rough notebook",
+        "1500 once in 3 months "
+      ],
+      [
+        "7",
+        " Pen (Blue and Black writo meter)",
+        "14400 each pen "
+      ],
+      [
+        "8",
+        " Pencil ",
+        "1800"
+      ],
+      [
+        "9",
+        " Eraser",
+        "1500"
+      ],
+      [
+        "10",
+        " Sharpener",
+        "1500"
+      ],
+      [
+        "11",
+        " Assignment sheets",
+        "500 (monthly)"
+      ],
+      [
+        "12",
+        " A4 size coloured paper /white ",
+        "1000( office work &for student)"
+      ],
+      [
+        "13",
+        " Glitter paper",
+        "100"
+      ],
+      [
+        "14",
+        "Chart sheet (white big size)",
+        "1000"
+      ],
+      [
+        "15",
+        "Chart sheet (coloured)",
+        "1500"
+      ],
+      [
+        "16",
+        " Sketch pens",
+        "500"
+      ],
+      [
+        "17",
+        "Pencil colour",
+        "500"
+      ],
+      [
+        "18",
+        " Water colour ",
+        "500"
+      ],
+      [
+        "19",
+        " Sparkle pens",
+        "500"
+      ],
+      [
+        "20",
+        " Wax color",
+        "500"
+      ],
+      [
+        "21",
+        "Sparkle tape/selo tape ",
+        "50 in three months "
+      ],
+      [
+        "22",
+        " Calculator ",
+        "50 ( official work and for student)"
+      ],
+      [
+        "23",
+        " Pen stand",
+        "20"
+      ],
+      [
+        "24",
+        " Book/Notebook bending",
+        "500 once in yaer"
+      ],
+      [
+        "25",
+        "one line notebook",
+        "2500 ( twice in year )"
+      ],
+      [
+        "26",
+        "geometry box",
+        "100 (twice in year)"
+      ],
+      [
+        "27",
+        "highlighter",
+        "30 once in three months"
+      ],
+      [
+        "28",
+        "marker with ink ",
+        "200  box "
+      ],
+      [
+        "29",
+        "white board ",
+        "10 yearly "
+      ],
+      [
+        "30",
+        "Attendance register(staff &student)",
+        " 10 yearly "
+      ],
+      [
+        "31",
+        "log book ",
+        "10 once in three /four month"
+      ],
+      [
+        "32",
+        "ruler ",
+        "100 once/twice  in month"
+      ],
+      [
+        "33",
+        "Drawing book",
+        "200 once in three month "
+      ],
+      [
+        "34",
+        "stapler with pins",
+        "10 stapler with 50 box pins "
+      ],
+      [
+        "35",
+        "Envelope (small&big)",
+        "200"
+      ],
+      [
+        "36",
+        "files (students &office work)",
+        "150"
+      ],
+      [
+        "37",
+        "sticky notes pad ",
+        "100"
+      ],
+      [
+        "38",
+        "text book for all students (school)",
+        "as per their class "
+      ],
+      [
+        "39",
+        "fevistick /glue ",
+        "10 box "
+      ],
+      [
+        "40",
+        "carbon paper ",
+        "50"
+      ],
+      [
+        "41",
+        " scissor ",
+        "20"
+      ],
+      [
+        "42",
+        "name slip ",
+        "1000 once in year "
+      ],
+      [
+        "43",
+        "photo printing  paper ",
+        "100"
+      ],
+      [
+        "44",
+        "Map book",
+        "100"
+      ],
+      [
+        "45",
+        "school practile book ",
+        "once in year (as no of student in class)"
+      ],
+      [
+        "Sr. No",
+        "Uniform",
+        "Requirements"
+      ],
+      [
+        "1",
+        "I set uniform (school )",
+        "once in year "
+      ],
+      [
+        "2",
+        "socks ",
+        "once in three months"
+      ],
+      [
+        "3",
+        "rubber (white)",
+        " twice in year "
+      ],
+      [
+        "4",
+        "pins white ",
+        "twice in year "
+      ],
+      [
+        "5",
+        "white /black shoes ",
+        "once in year "
+      ],
+      [
+        "6",
+        "school batch (yellow,orange ,green",
+        null
+      ],
+      [
+        "7",
+        "white batch ",
+        " 1 to each person (once in year )"
+      ],
+      [
+        "8",
+        "White chunni ",
+        "2 each person (once in year )"
+      ],
+      [
+        "9",
+        "School bag ",
+        "once in a year "
+      ],
+      [
+        "10",
+        "school bottle ",
+        "twice on year "
+      ],
+      [
+        "11",
+        "school tiffen ",
+        "once in a year "
+      ],
+      [
+        "12",
+        "Dresses",
+        null
+      ],
+      [
+        "13",
+        "suits /frocks  dress",
+        "2for each person (twice in year)"
+      ],
+      [
+        "14",
+        "jackets (winter)",
+        "3 each person (once in year)"
+      ],
+      [
+        "15",
+        "Sweater (winter)",
+        "3 each person (once in year)"
+      ],
+      [
+        "16",
+        "trouser (winter)",
+        "3 each person (once in year)"
+      ],
+      [
+        "17",
+        "socks (winter)",
+        "3pair each person (once in year)"
+      ],
+      [
+        "18",
+        "warmer set (winter)",
+        "2 set each person (once in year)"
+      ]
+    ],
+    "Expenses": [
+      [
+        "Jammu Home Expenses (2025)",
+        null,
+        null
+      ],
+      [
+        "Sr. No",
+        "Month",
+        "Expentidure Amt"
+      ],
+      [
+        "1",
+        "Jan",
+        "290054"
+      ],
+      [
+        "2",
+        "Feb",
+        "198204"
+      ],
+      [
+        "3",
+        "Mar",
+        "256501"
+      ],
+      [
+        "4",
+        "Apr",
+        "160210"
+      ],
+      [
+        "5",
+        "May",
+        "132580"
+      ],
+      [
+        "6",
+        "June",
+        "135580"
+      ],
+      [
+        "7",
+        "July",
+        "180401"
+      ],
+      [
+        "8",
+        "Aug",
+        "195572"
+      ],
+      [
+        "9",
+        "Sep",
+        "150839"
+      ],
+      [
+        "10",
+        "Oct",
+        "156555"
+      ],
+      [
+        "11",
+        "Nov",
+        "160020"
+      ],
+      [
+        "12",
+        "Dec",
+        "466050"
+      ],
+      [
+        null,
+        "TOTAL",
+        "2482566"
+      ]
+    ]
+  }
+}

@@ -7,7 +7,9 @@ const {
   postMood,
   getMood,
   getHistory,
-  requestCounselling
+  requestCounselling,
+  toggleTask,
+  getTodayTask
 } = require("./controller");
 
 // 
@@ -22,7 +24,10 @@ router.get("/history", authenticateToken, getHistory);
 // Counselling Request
 router.post("/counselling", authenticateToken, requestCounselling);
 
+// Daily Task Toggle
+router.patch("/tasks/today", authenticateToken, toggleTask);
 
+router.get("/tasks/today", authenticateToken, getTodayTask);
 
 
 module.exports = router;

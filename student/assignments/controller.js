@@ -5,6 +5,7 @@ const {
   submitAssignment,
   revertAssignment
 } = require("./service");
+const { uploadToCloudinary } = require('../../utils/cloudinary');
 
 // GET assignments
 async function getAssignmentsController(req, res) {
@@ -22,7 +23,9 @@ async function getAssignmentsController(req, res) {
       status: c.status.toLowerCase(),
       dueDate: c.dueDate,
       submittedDate: c.submittedDate,
-      rejectionNote: c.rejectionNote
+      rejectionNote: c.rejectionNote,
+      fileUrl: c.fileUrl,
+      fileType: c.fileType
     }));
 
     return res.status(200).json({ assignments: formatted });
@@ -39,7 +42,28 @@ async function submitAssignmentController(req, res) {
     const auth_id = req.user.auth_id;
     const { id } = req.params;
 
-    const result = await submitAssignment(auth_id, id);
+    let mediaUrl = null;
+    let mediaType = null;
+
+    if (req.file) {
+      try {
+        const result = await uploadToCloudinary(req.file.buffer, req.file.mimetype);
+        mediaUrl = result.url;
+        
+        if (req.file.mimetype.startsWith('video/')) {
+          mediaType = 'video';
+        } else if (req.file.mimetype === 'application/pdf') {
+          mediaType = 'pdf';
+        } else {
+          mediaType = 'image';
+        }
+      } catch (uploadError) {
+        console.error("Cloudinary upload failed:", uploadError);
+        return res.status(500).json({ message: "Failed to upload file" });
+      }
+    }
+
+    const result = await submitAssignment(auth_id, id, mediaUrl, mediaType);
 
     return res.status(200).json({
       success: true,

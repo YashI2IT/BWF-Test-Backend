@@ -17,6 +17,11 @@ const counsellingSchema = new mongoose.Schema({
     type: String,
     enum: ["pending", "in_progress", "resolved"],
     default: "pending"
+  },
+
+  readByTeacher: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true });
 

@@ -9,29 +9,19 @@ const taskSchema = new mongoose.Schema({
     type: String
   },
   dueDate: {
-    type: String, // YYYY-MM-DD
-    required: true
+    type: String
   },
   assignedTo: {
-    type: String, // auth_id of student
-    required: true
-  },
-  assignedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Teacher',
-    required: false
+    type: String
   },
   fileUrl: {
-    type: String,
-    required: false
+    type: String
   },
   fileType: {
-    type: String,
-    required: false
+    type: String
   },
   status: {
     type: String,
-    enum: ['pending', 'completed', 'verified'],
     default: 'pending'
   }
 }, { timestamps: true });

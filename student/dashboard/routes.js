@@ -8,7 +8,7 @@ const { authenticateToken, authorizeRoles, authorizeSelfOrAdmin } = require('../
 // authorizeSelfOrAdmin ensures a student can only see their own dashboard.
 
 router.get(
-  '/me',
+  '/:auth_id',
   authenticateToken,
   authorizeRoles('student', 'admin'),
   authorizeSelfOrAdmin,
@@ -16,7 +16,7 @@ router.get(
 );
 
 router.post(
-  '/me/mood',
+  '/:auth_id/mood',
   authenticateToken,
   authorizeRoles('student'),
   authorizeSelfOrAdmin,
@@ -24,7 +24,7 @@ router.post(
 );
 
 router.post(
-  '/me/mentor-note/:noteId/thanks',
+  '/:auth_id/mentor-note/:noteId/thanks',
   authenticateToken,
   authorizeRoles('student'),
   authorizeSelfOrAdmin,

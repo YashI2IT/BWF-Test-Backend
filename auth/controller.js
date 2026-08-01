@@ -31,7 +31,9 @@ const { generateAccessToken, generateRefreshToken } = require('./service');
 
 async function login(req, res) {
     try {
-        const { id, password } = req.body;
+        let { id, password } = req.body;
+        
+        if (id) id = id.trim();
 
         if (!id || !password) {
             return res.status(400).json({ message: 'ID and password are required' });

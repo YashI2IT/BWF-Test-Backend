@@ -9,6 +9,7 @@ const complaintsRoutes = require("./complaints/routes");
 const dashboardRoutes = require("./dashboard/routes");
 const noticeboardRoutes = require("./noticeboard/routes");
 const sosRoutes = require("./sos/routes");
+const activitiesRoutes = require("./activities/routes");
 
 router.use("/profile", profileRoutes);
 router.use("/wellbeing", wellbeingRoutes);
@@ -18,5 +19,6 @@ router.use("/complaints", complaintsRoutes);
 router.use("/dashboard", dashboardRoutes);
 router.use("/noticeboard", noticeboardRoutes);
 router.use("/sos", sosRoutes);
+router.use("/activities", activitiesRoutes);
 
 module.exports = router;

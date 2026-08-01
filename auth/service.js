@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 
 function isValidUser (id) {
-    const pattern = /^[A-Za-z0-9-]+$/;
+    const pattern = /^[A-Za-z0-9_-]+$/;
     return pattern.test(id);
 }
 

@@ -30,6 +30,7 @@ const noticesController = require('./controllers/notices');
 const complaintsController = require('./controllers/complaints');
 const { getTasks, createTask, updateTask, deleteTask, verifyTask } = require('./controllers/tasks');
 const scheduleController = require('./controllers/schedule');
+const counsellingController = require('./counselling/controller');
 
 // Apply authentication middleware to all teacher routes
 router.use(authenticateToken);
@@ -93,5 +94,9 @@ router.post('/schedule', upload.array('attachments', 5), scheduleController.crea
 router.post('/schedule/:id/comments', scheduleController.addComment);
 router.put('/schedule/:id', scheduleController.updateSchedule);
 router.delete('/schedule/:id', scheduleController.deleteSchedule);
+
+// Counselling Alerts
+router.get('/counselling/unread', counsellingController.getUnreadRequests);
+router.put('/counselling/:id/read', counsellingController.markRequestRead);
 
 module.exports = router;

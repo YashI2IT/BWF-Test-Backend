@@ -1,0 +1,41 @@
+﻿STATUS           LABEL                                PATH
+----------------------------------------------------------------------------------------------------
+python : Traceback (most 
+recent call last):
+At line:1 char:1
++ python BWF-data/audit.py 
+2>&1 | Out-File 
+BWF-data/audit_result.txt 
+-E ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~
+    + CategoryInfo         
+     : NotSpecified: (Tra  
+  ceback (most recent ca   
+ ll last)::String) [],     
+RemoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+  File "F:\BWF\BWF-data\aud
+it.py", line 36, in 
+<module>
+    print(f"{flag:<16} 
+{label:<36} {path}")
+    ~~~~~^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
+  File "C:\Users\raviu\AppD
+ata\Local\Programs\Python\P
+ython313\Lib\encodings\cp12
+52.py", line 19, in encode
+    return codecs.charmap_e
+ncode(input,self.errors,enc
+oding_table)[0]
+           ~~~~~~~~~~~~~~~~
+~~~~~^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
+UnicodeEncodeError: 
+'charmap' codec can't 
+encode character '\u274c' 
+in position 6: character 
+maps to <undefined>
