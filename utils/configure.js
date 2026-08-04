@@ -5,12 +5,10 @@
 // the database connection before starting the server.
 
 const mongoose = require('mongoose');
-const seedData = require('../seedData'); // Optional: For seeding initial data
 
 module.exports = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        // await seedData();
         console.log("Mongoose Connected!");
     } catch (err) {
         console.log("MONGO ERROR: ", err);

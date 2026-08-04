@@ -323,7 +323,7 @@ exports.getReportSummary = async (req, res) => {
       byCategory, byHome, byMonth, byStatus,
       feedbackCount, grievanceCount
     ] = await Promise.all([
-      Student.countDocuments({ status: 'active' }),
+      Student.countDocuments(),
       StaffMember.countDocuments({ status: 'active' }),
       Expense.aggregate([{ $match: expFilter }, { $group: { _id: null, total: { $sum: '$amount' } } }]),
       Expense.aggregate([{ $match: expFilter }, { $group: { _id: '$category', total: { $sum: '$amount' } } }]),
