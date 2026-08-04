@@ -29,7 +29,7 @@ async function log(req, action, targetType, targetId, targetName, before, after)
 exports.getOverview = async (req, res) => {
   try {
     const [totalStudents, activeStaff, pendingExpenses, pendingPosts, staffAll, staffLeft12mo, openSoS] = await Promise.all([
-      Student.countDocuments({ status: 'active' }),
+      Student.countDocuments(),
       StaffMember.countDocuments({ status: 'active' }),
       Expense.countDocuments({ status: 'pending' }),
       Post.countDocuments({ status: 'pending' }),
@@ -91,7 +91,9 @@ exports.listStudents = async (req, res) => {
       if (hostels.length > 0) filter.hostelName = { $in: hostels.map(h => h._id) };
       else filter.hostelName = null;
     }
-    if (status) filter.status = status;
+    if (status && status !== 'all') {
+      filter.status = status;
+    }
     if (cls)    filter.class = cls;
     if (search) filter.$or = [{ name: new RegExp(search,'i') }, { studentId: new RegExp(search,'i') }];
     if (ageMin || ageMax) {
@@ -105,6 +107,7 @@ exports.listStudents = async (req, res) => {
     // Map hostelName to home for frontend compatibility
     const mapped = students.map(s => {
       s.home = s.hostelName ? s.hostelName.name : 'Outside';
+      s.className = s.class;
       return s;
     });
     res.json(mapped);
@@ -113,6 +116,9 @@ exports.listStudents = async (req, res) => {
 exports.addStudent = async (req, res) => {
   try {
     const payload = { ...req.body, verifiedBy: req.user.auth_id };
+    if (payload.className) {
+      payload.class = payload.className;
+    }
     if (payload.home) {
       const h = await Hostel.findOne({ name: new RegExp(payload.home, 'i') });
       if (h) payload.hostelName = h._id;
@@ -128,6 +134,9 @@ exports.updateStudent = async (req, res) => {
     if (!before) return res.status(404).json({ message: 'Student not found' });
     
     const payload = { ...req.body };
+    if (payload.className) {
+      payload.class = payload.className;
+    }
     if (payload.home) {
       const h = await Hostel.findOne({ name: new RegExp(payload.home, 'i') });
       if (h) payload.hostelName = h._id;
