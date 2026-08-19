@@ -6,7 +6,8 @@ const router = express.Router();
 const {
   getCommunityPosts,
   createPost,
-  toggleLike
+  toggleLike,
+  votePoll
 } = require("./controller");
 
 const upload = require("./middleware");
@@ -28,6 +29,13 @@ router.post(
   "/posts/:id/like",
   authenticateToken,
   toggleLike
+);
+
+// VOTE poll
+router.post(
+  "/posts/:id/vote",
+  authenticateToken,
+  votePoll
 );
 
 module.exports = router;

@@ -121,6 +121,14 @@ const studentSchema = new mongoose.Schema({
     name: { type: String, required: false },
     phone: { type: String, required: false },
     relation: { type: String, required: false }
+  },
+
+  gamification: {
+    streak: { type: Number, default: 0 },
+    level: { type: Number, default: 1 },
+    xp: { type: Number, default: 0 },
+    coins: { type: Number, default: 0 },
+    lastActiveDate: { type: String, default: null }
   }
 
 }, { timestamps: true });

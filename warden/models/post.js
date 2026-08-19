@@ -72,6 +72,14 @@ const postSchema = new mongoose.Schema(
     forwardReason: {
       type: String,
     },
+    likes: {
+      type: Number,
+      default: 0,
+    },
+    likedBy: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Users',
+    }],
     approvedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Users',

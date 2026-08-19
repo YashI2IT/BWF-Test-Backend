@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
-const { authenticateToken } = require('../auth/middleware');
+const { authenticateToken, authorizeRoles } = require('../auth/middleware');
 
 const {
   getTeacherProfile,
@@ -33,7 +33,7 @@ const scheduleController = require('./controllers/schedule');
 const counsellingController = require('./counselling/controller');
 
 // Apply authentication middleware to all teacher routes
-router.use(authenticateToken);
+router.use(authenticateToken, authorizeRoles('teacher', 'admin'));
 
 // Dashboard & Profile
 router.get('/profile', getTeacherProfile);
@@ -65,6 +65,7 @@ router.post('/posts', upload.single('media'), communityController.createPost);
 router.put('/posts/:postId', communityController.updatePost);
 router.delete('/posts/:postId', communityController.deletePost);
 router.post('/posts/:postId/vote', communityController.voteOnPost);
+router.post('/posts/:postId/like', communityController.toggleLike);
 router.put('/posts/:postId/pin', communityController.togglePinPost);
 
 // Notices

@@ -11,6 +11,8 @@ const postToResponse = (post, userId) => {
     ...object,
     canManage: String(object.creatorId) === String(userId),
     userVote: voter ? voter.optionIndex : null,
+    isLiked: object.likedBy ? object.likedBy.some(id => String(id) === String(userId)) : false,
+    likes: object.likes || 0,
   };
 };
 
@@ -48,67 +50,16 @@ const normalizePollOptions = (type, pollOptions = [], previousOptions = []) => {
   return options;
 };
 
+const { getUnifiedCommunityPosts } = require('../../utils/communityFeed');
+
 async function getPosts(req, res) {
   try {
     const userId = req.user.id;
     const { pinned } = req.query;
-
-    const query = {};
-    const cpQuery = { isVerified: true }; // Only show verified community posts
-    if (pinned === "true") {
-      query.pinned = true;
-      cpQuery.pinned = true; // CommunityPost doesn't typically have pinned, but we'll allow it just in case
-    }
-    // Note: Teacher gets all posts globally since they don't have a specific hostel.
-
-    const posts = await Post.find(query)
-      .populate("hostelName")
-      .sort({ date: -1, time: -1, createdAt: -1 })
-      .select("-__v")
-      .lean();
-
-    const mappedPosts = posts.map((post) => postToResponse(post, userId));
-
-    const communityPosts = await CommunityPost.find(cpQuery)
-      .sort({ createdAt: -1 })
-      .lean();
-
-    const mappedCommunityPosts = communityPosts.map(cp => {
-      const isLiked = cp.likedBy && cp.likedBy.some(v => String(v) === String(userId));
-      return {
-        _id: cp._id,
-        id: cp._id,
-        author: cp.author,
-        content: cp.content,
-        date: cp.createdAt,
-        time: cp.createdAt ? cp.createdAt.toISOString().split('T')[1].substring(0, 5) : "00:00",
-        status: cp.isVerified ? 'Approved' : 'Pending',
-        type: 'text',
-        tags: cp.category ? [cp.category] : [],
-        pollOptions: [],
-        voters: cp.likedBy ? cp.likedBy.map(uid => ({ userId: uid, optionIndex: 0 })) : [],
-        userVote: isLiked ? 0 : null,
-        creatorId: cp.userId,
-        creatorRole: cp.role,
-        hostelName: 'Community',
-        pinned: false,
-        canManage: String(cp.userId) === String(userId),
-        mediaUrl: cp.mediaUrl || null,
-        mediaType: 'image'
-      };
-    });
-
-    const allPosts = [...mappedPosts, ...mappedCommunityPosts];
-    // Sort all by date (newest first)
-    allPosts.sort((a, b) => {
-      const dateA = a.date ? new Date(a.date).getTime() : 0;
-      const dateB = b.date ? new Date(b.date).getTime() : 0;
-      return dateB - dateA;
-    });
-
+    const allPosts = await getUnifiedCommunityPosts(userId, pinned === "true");
     return res.status(200).json(allPosts);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ message: "Server error" });
   }
 }
@@ -296,11 +247,78 @@ async function togglePinPost(req, res) {
   }
 }
 
+async function toggleLike(req, res) {
+  try {
+    const userId = req.user.id;
+    const postId = req.params.postId;
+
+    let post = await Post.findById(postId);
+    let isCommunity = false;
+    
+    if (!post) {
+      post = await CommunityPost.findById(postId);
+      isCommunity = true;
+    }
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found.' });
+    }
+
+    const alreadyLiked = post.likedBy && post.likedBy.includes(userId);
+
+    if (alreadyLiked) {
+      post.likedBy.pull(userId);
+      post.likes -= 1;
+    } else {
+      if (!post.likedBy) post.likedBy = [];
+      post.likedBy.push(userId);
+      post.likes = (post.likes || 0) + 1;
+    }
+
+    await post.save();
+    
+    if (isCommunity) {
+      // Map community post
+      const cp = post.toObject();
+      const updatedPost = {
+        _id: cp._id,
+        id: cp._id,
+        author: cp.author,
+        content: cp.content,
+        date: cp.createdAt,
+        time: cp.createdAt ? cp.createdAt.toISOString().split('T')[1].substring(0, 5) : "00:00",
+        status: cp.isVerified ? 'Approved' : 'Pending',
+        type: 'text',
+        tags: cp.category ? [cp.category] : [],
+        pollOptions: [],
+        voters: cp.likedBy ? cp.likedBy.map(uid => ({ userId: uid, optionIndex: 0 })) : [],
+        userVote: cp.likedBy && cp.likedBy.some(uid => String(uid) === String(userId)) ? 0 : null,
+        creatorId: cp.userId,
+        creatorRole: cp.role,
+        hostelName: 'Community',
+        pinned: false,
+        canManage: String(cp.userId) === String(userId),
+        mediaUrl: cp.mediaUrl || null,
+        mediaType: 'image',
+        likes: cp.likes || 0,
+        isLiked: cp.likedBy ? cp.likedBy.some(id => String(id) === String(userId)) : false,
+      };
+      return res.status(200).json({ post: updatedPost });
+    }
+
+    return res.status(200).json({ post: postToResponse(post, userId) });
+  } catch (error) {
+    console.error('Error toggling like:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
+
 module.exports = {
   getPosts,
   createPost,
   updatePost,
   deletePost,
   voteOnPost,
-  togglePinPost
+  togglePinPost,
+  toggleLike
 };

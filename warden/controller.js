@@ -17,6 +17,8 @@ const postToResponse = (post, userId) => {
     ...object,
     canManage: String(object.creatorId) === String(userId),
     userVote: voter ? voter.optionIndex : null,
+    isLiked: object.likedBy ? object.likedBy.some(id => String(id) === String(userId)) : false,
+    likes: object.likes || 0,
   };
 };
 
@@ -769,79 +771,20 @@ async function deleteStaff(req, res) {
   }
 }
 
+const { getUnifiedCommunityPosts } = require('../utils/communityFeed');
+
 // ================= WARDEN COMMUNITY POSTS =================
 async function getPosts(req, res) {
   try {
     const userId = req.user.id;
     const { pinned } = req.query;
-    const CommunityPost = require('../models/CommunityPost');
 
     const warden = await Warden.findOne({ userId });
     if (!warden) {
       return res.status(404).json({ message: "Warden not found" });
     }
 
-    const query = {};
-    const cpQuery = { isVerified: true };
-
-    if (warden.hostelName) {
-      query.$or = [
-        { hostelName: warden.hostelName },
-        { creatorRole: 'teacher' }
-      ];
-    } else {
-      query.creatorRole = 'teacher';
-    }
-    if (pinned === "true") {
-      query.pinned = true;
-      cpQuery.pinned = true;
-    }
-
-    const posts = await Post.find(query)
-      .populate("hostelName")
-      .sort({ date: -1, time: -1, createdAt: -1 })
-      .select("-__v")
-      .lean();
-
-    const mappedPosts = posts.map((post) => postToResponse(post, userId));
-
-    const communityPosts = await CommunityPost.find(cpQuery)
-      .sort({ createdAt: -1 })
-      .lean();
-
-    const mappedCommunityPosts = communityPosts.map(cp => {
-      const isLiked = cp.likedBy && cp.likedBy.some(v => String(v) === String(userId));
-      return {
-        _id: cp._id,
-        id: cp._id,
-        author: cp.author,
-        content: cp.content,
-        date: cp.createdAt,
-        time: cp.createdAt ? cp.createdAt.toISOString().split('T')[1].substring(0, 5) : "00:00",
-        status: cp.isVerified ? 'Approved' : 'Pending',
-        type: 'text',
-        tags: cp.category ? [cp.category] : [],
-        pollOptions: [],
-        voters: cp.likedBy ? cp.likedBy.map(uid => ({ userId: uid, optionIndex: 0 })) : [],
-        userVote: isLiked ? 0 : null,
-        creatorId: cp.userId,
-        creatorRole: cp.role,
-        hostelName: 'Community',
-        pinned: false,
-        canManage: String(cp.userId) === String(userId),
-        mediaUrl: cp.mediaUrl || null,
-        mediaType: 'image'
-      };
-    });
-
-    const allPosts = [...mappedPosts, ...mappedCommunityPosts];
-    // Sort all by date (newest first)
-    allPosts.sort((a, b) => {
-      const dateA = a.date ? new Date(a.date).getTime() : 0;
-      const dateB = b.date ? new Date(b.date).getTime() : 0;
-      return dateB - dateA;
-    });
-
+    const allPosts = await getUnifiedCommunityPosts(userId, pinned === "true");
     return res.status(200).json(allPosts);
 
   } catch (err) {
@@ -852,7 +795,7 @@ async function getPosts(req, res) {
 
 async function createPost(req, res) {
   try {
-    console.log("createPost HIT! req.body:", req.body, "req.file:", req.file ? req.file.originalname : null);
+
     const userId = req.user.id;
     let { content, type = "text", tags, pollOptions } = req.body;
 
@@ -1059,26 +1002,19 @@ async function deletePost(req, res) {
 async function getWardenProfile(req, res) {
   try {
     const userId = req.user.id;
-    console.log('=== GET WARDEN PROFILE ===');
-    console.log('userId:', userId);
-    console.log('User data:', req.user);
+
 
     const warden = await Warden.findOne({ userId }).populate("hostelName");
-    console.log('Warden found:', !!warden);
-    if (warden) {
-      console.log('Warden ID:', warden._id);
-      console.log('Warden hostelName:', warden.hostelName);
-    }
 
     if (!warden) {
-      console.log('❌ No warden record found for userId:', userId);
+
       return res.status(404).json({
         message: "Warden not found",
         debug: { userId }
       });
     }
 
-    console.log('✅ Returning warden profile');
+
     return res.status(200).json(warden);
 
   } catch (err) {
@@ -1094,9 +1030,7 @@ async function getWardenProfile(req, res) {
 async function updateWardenProfile(req, res) {
   try {
     const userId = req.user.id;
-    console.log('=== UPDATE WARDEN PROFILE ===');
-    console.log('userId:', userId);
-    console.log('Request body:', req.body);
+
 
     const allowedFields = [
       "name",
@@ -1120,7 +1054,7 @@ async function updateWardenProfile(req, res) {
       }
     });
 
-    console.log('Updates to apply:', updates);
+
 
     // ✅ Prevent empty update
     if (Object.keys(updates).length === 0) {
@@ -1139,14 +1073,14 @@ async function updateWardenProfile(req, res) {
     }
 
     if (!warden) {
-      console.log('❌ No warden record found for userId:', userId);
+
       return res.status(404).json({
         message: "Warden not found",
         debug: { userId }
       });
     }
 
-    console.log('✅ Warden updated:', warden._id);
+
     return res.status(200).json(warden);
 
   } catch (err) {
@@ -1966,6 +1900,73 @@ async function deleteComplaintHistory(req, res) {
   }
 }
 
+const toggleLike = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const postId = req.params.postId;
+
+    const CommunityPost = require('../models/CommunityPost');
+    
+    let post = await Post.findById(postId);
+    let isCommunity = false;
+    
+    if (!post) {
+      post = await CommunityPost.findById(postId);
+      isCommunity = true;
+    }
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found.' });
+    }
+
+    const alreadyLiked = post.likedBy && post.likedBy.includes(userId);
+
+    if (alreadyLiked) {
+      post.likedBy.pull(userId);
+      post.likes -= 1;
+    } else {
+      if (!post.likedBy) post.likedBy = [];
+      post.likedBy.push(userId);
+      post.likes = (post.likes || 0) + 1;
+    }
+
+    await post.save();
+    
+    if (isCommunity) {
+      const isLiked = post.likedBy && post.likedBy.some(v => String(v) === String(userId));
+      const mappedCP = {
+        _id: post._id,
+        id: post._id,
+        author: post.author,
+        content: post.content,
+        date: post.createdAt,
+        time: post.createdAt ? post.createdAt.toISOString().split('T')[1].substring(0, 5) : "00:00",
+        status: post.isVerified ? 'Approved' : 'Pending',
+        type: 'text',
+        tags: post.category ? [post.category] : [],
+        pollOptions: [],
+        voters: post.likedBy ? post.likedBy.map(uid => ({ userId: uid, optionIndex: 0 })) : [],
+        userVote: isLiked ? 0 : null,
+        creatorId: post.userId,
+        creatorRole: post.role,
+        hostelName: 'Community',
+        pinned: false,
+        canManage: String(post.userId) === String(userId),
+        mediaUrl: post.mediaUrl || null,
+        mediaType: 'image',
+        likes: post.likes || 0,
+        isLiked: isLiked
+      };
+      return res.status(200).json({ post: mappedCP });
+    }
+    
+    return res.status(200).json({ post: postToResponse(post, userId) });
+  } catch (error) {
+    console.error('Error toggling like:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
   createStudent,
   getStudents,
@@ -1983,6 +1984,7 @@ module.exports = {
   updatePostPin,
   deletePost,
   votePost,
+  toggleLike,
   getHostels,
   getWardenProfile,
   updateWardenProfile,

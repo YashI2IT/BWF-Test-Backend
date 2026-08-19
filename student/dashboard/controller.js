@@ -5,7 +5,9 @@ const {
   getRecentAssignments,
   getLatestMentorNote,
   getGlobalResources,
-  getTodayString
+  getTodayString,
+  getStudentGamification,
+  getDailyQuestsProgress
 } = require('./service');
 
 // GET /api/dashboard/:auth_id
@@ -18,12 +20,14 @@ async function getDashboard(req, res) {
   try {
     const today = getTodayString();
 
-    const [schedule, assignments, mentorNote, todayMood, resources] = await Promise.all([
+    const [schedule, assignments, mentorNote, todayMood, resources, gamification, questsProgress] = await Promise.all([
       getTodaySchedule(auth_id),
       getRecentAssignments(auth_id),
       getLatestMentorNote(auth_id),
       MoodLog.findOne({ auth_id, date: today }).lean(),
-      getGlobalResources()
+      getGlobalResources(),
+      getStudentGamification(auth_id),
+      getDailyQuestsProgress(auth_id)
     ]);
 
     return res.status(200).json({
@@ -32,7 +36,9 @@ async function getDashboard(req, res) {
       assignments,
       mentorNote,
       resources,
-      todayMood: todayMood ? todayMood.mood : null
+      todayMood: todayMood ? todayMood.mood : null,
+      gamification,
+      questsProgress
     });
 
   } catch (err) {

@@ -1,9 +1,10 @@
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
-  cloud_name: 'co2gsulq',
-  api_key: '758988719589415',
-  api_secret: 'cLWxeum_4_DovYKz5A2mp8HmEQ0'
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'co2gsulq',
+  api_key: process.env.CLOUDINARY_API_KEY || '758988719589415',
+  api_secret: process.env.CLOUDINARY_API_SECRET || 'cLWxeum_4_DovYKz5A2mp8HmEQ0',
+  timeout: 60000 // 60 second timeout to prevent hanging uploads
 });
 
 const uploadToCloudinary = (fileBuffer, fileType) => {

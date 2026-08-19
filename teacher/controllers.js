@@ -420,7 +420,7 @@ exports.getMentorNotes = async (req, res) => {
 // Get Students for Dropdown
 exports.getStudents = async (req, res) => {
   try {
-    const students = await Student.find({}, '_id auth_id name class hostelName mentorName').populate('hostelName', 'name');
+    const students = await Student.find({}, '_id auth_id name class hostelName mentorName avatarId customAvatarUrl').populate('hostelName', 'name');
     res.json(students);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching students', error: error.message });

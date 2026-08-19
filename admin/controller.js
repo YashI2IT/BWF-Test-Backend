@@ -16,6 +16,7 @@ const PendingActivity = require('../warden/models/pendingActivity');
 const WardenComplaint = require('../warden/models/complaints');
 const HomeRecord     = require('../models/HomeRecord');
 const Hostel         = require('../models/Hostel');
+const SOSAlert       = require('../models/SOSAlert');
 const { sendSoSAlert } = require('../utils/mailer');
 
 function adminInfo(req) { return { adminId: req.user.id, adminName: req.user.auth_id }; }
@@ -516,6 +517,7 @@ exports.listPendingPosts = async (req, res) => {
       pollOptions: [],
       creatorName: p.author,
       creatorRole: p.role,
+      creatorAvatar: p.avatarId,
       hostelName: "Unknown", 
       status: p.status || 'pending',
       rejectionReason: "",
@@ -557,18 +559,25 @@ exports.deletePendingPost = async (req, res) => {
 };
 
 // ── Community — Live Posts ────────────────────────────────────────────────────
+const { getUnifiedCommunityPosts } = require('../utils/communityFeed');
+
 exports.listLivePosts = async (req, res) => {
   try {
     const { hostelName, type } = req.query;
-    const filter = {};
-    if (hostelName) filter.hostelName = hostelName;
-    if (type)       filter.type = type;
-    const rawPosts = await LivePost.find(filter)
-      .populate('hostelName')
-      .sort({ pinned: -1, createdAt: -1 })
-      .lean();
+    
+    // Admin gets all global unified posts
+    let allPosts = await getUnifiedCommunityPosts(req.user.id);
+    
+    // Apply filters if provided
+    if (hostelName) {
+      allPosts = allPosts.filter(p => p.hostelName === hostelName || p.hostelName?.name === hostelName);
+    }
+    if (type) {
+      allPosts = allPosts.filter(p => p.type === type);
+    }
 
-    const posts = rawPosts.map(p => ({
+    // Map unified post structure to what Admin frontend expects
+    const mappedAdminPosts = allPosts.map(p => ({
       _id: p._id,
       content: p.content,
       type: p.type || "text",
@@ -576,52 +585,148 @@ exports.listLivePosts = async (req, res) => {
       pollOptions: p.pollOptions || [],
       creatorName: p.author || 'Unknown',
       creatorRole: p.creatorRole || 'admin',
-      hostelName: p.hostelName ? p.hostelName.name : 'Unknown',
+      hostelName: typeof p.hostelName === 'object' ? p.hostelName.name : (p.hostelName || 'Unknown'),
       pinned: p.pinned || false,
       mediaUrl: p.mediaUrl,
       mediaType: p.mediaType,
-      createdAt: p.date || p.createdAt
+      createdAt: p.createdAt || p.date,
+      likes: p.likes || 0,
+      isLiked: p.isLiked || false,
     }));
 
-    const CommunityPost = require('../models/CommunityPost');
-    const cpFilter = { isVerified: true };
-    if (hostelName) cpFilter.hostelName = hostelName; // CommunityPost doesn't have hostelName, but if it did...
-    
-    const communityPosts = await CommunityPost.find({ isVerified: true }).sort({ createdAt: -1 }).lean();
-
-    const mappedCommunityPosts = communityPosts.map(cp => ({
-      _id: cp._id,
-      content: cp.content,
-      type: "text",
-      tags: cp.category ? [cp.category] : [],
-      pollOptions: [],
-      creatorName: cp.author,
-      creatorRole: cp.role,
-      hostelName: "Unknown", 
-      status: "approved",
-      pinned: false,
-      mediaUrl: cp.mediaUrl,
-      mediaType: cp.mediaType,
-      createdAt: cp.createdAt
-    }));
-
-    const allPosts = [...posts, ...mappedCommunityPosts].sort((a, b) => {
-      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-      // Pinned posts first
+    // Admin sorts pinned first
+    mappedAdminPosts.sort((a, b) => {
       if (a.pinned && !b.pinned) return -1;
       if (!a.pinned && b.pinned) return 1;
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
       return dateB - dateA;
     });
 
-    res.json(allPosts);
-  } catch (err) { res.status(500).json({ message: err.message }); }
+    res.status(200).json(mappedAdminPosts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.toggleLike = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const postId = req.params.id;
+
+    // Could be LivePost or CommunityPost
+    const CommunityPost = require('../models/CommunityPost');
+    let post = await LivePost.findById(postId);
+    let isCommunity = false;
+    
+    if (!post) {
+      post = await CommunityPost.findById(postId);
+      isCommunity = true;
+    }
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found.' });
+    }
+
+    const alreadyLiked = post.likedBy && post.likedBy.includes(userId);
+
+    if (alreadyLiked) {
+      post.likedBy.pull(userId);
+      post.likes -= 1;
+    } else {
+      if (!post.likedBy) post.likedBy = [];
+      post.likedBy.push(userId);
+      post.likes = (post.likes || 0) + 1;
+    }
+
+    await post.save();
+    
+    // Create the updated response object
+    const p = post.toObject();
+    const updatedPost = {
+      _id: p._id,
+      content: p.content,
+      type: p.type || "text",
+      tags: isCommunity ? (p.category ? [p.category] : []) : (p.tags || []),
+      pollOptions: p.pollOptions || [],
+      creatorName: p.author || 'Unknown',
+      creatorRole: isCommunity ? p.role : (p.creatorRole || 'admin'),
+      hostelName: isCommunity ? 'Unknown' : (post.hostelName ? post.hostelName.name : 'Unknown'), // Note: this might not populate immediately here, but enough for UI updates
+      pinned: p.pinned || false,
+      mediaUrl: p.mediaUrl,
+      mediaType: p.mediaType,
+      createdAt: p.date || p.createdAt,
+      likes: p.likes || 0,
+      isLiked: p.likedBy ? p.likedBy.some(id => String(id) === String(userId)) : false,
+    };
+
+    return res.status(200).json({ post: updatedPost });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 exports.createLivePost = async (req, res) => {
   try {
-    const post = await LivePost.create({ ...req.body, creatorName: req.user.auth_id, creatorRole: 'admin', approvedBy: req.user.auth_id });
-    await log(req, 'CREATE_LIVE_POST', 'community', post._id, post.content.slice(0,40), null, post.toObject());
+    const now = new Date();
+    const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+    
+    let hostelId = null;
+    if (req.body.hostelName && req.body.hostelName !== 'all') {
+      const Hostel = require('../models/Hostel');
+      const h = await Hostel.findOne({ name: new RegExp(req.body.hostelName, 'i') });
+      if (h) hostelId = h._id;
+    }
+    
+    let mediaUrl = null;
+    let mediaType = null;
+    if (req.file) {
+      const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+      mediaUrl = `${baseUrl}/uploads/${req.file.filename}`;
+      if (req.file.mimetype.startsWith('image/')) mediaType = 'image';
+      else if (req.file.mimetype.startsWith('video/')) mediaType = 'video';
+      else if (req.file.mimetype === 'application/pdf') mediaType = 'pdf';
+    }
+    
+    const latestPost = await LivePost.findOne().sort({ id: -1 }).select("id");
+    
+    let tags = req.body.tags || [];
+    if (typeof tags === 'string') {
+      try { tags = JSON.parse(tags); } catch (e) { tags = tags.split(',').map(t=>t.trim()).filter(Boolean); }
+    }
+    let pollOptions = req.body.pollOptions || [];
+    if (typeof pollOptions === 'string') {
+      try { pollOptions = JSON.parse(pollOptions); } catch (e) { pollOptions = []; }
+    }
+    
+    if (req.body.type === 'poll') {
+      if (pollOptions.length < 2) return res.status(400).json({ message: "Poll requires at least 2 options" });
+      pollOptions = pollOptions.map(opt => ({ text: opt.text || opt, votes: 0 }));
+    } else {
+      pollOptions = [];
+    }
+
+    const postData = {
+      ...req.body,
+      id: (latestPost?.id || 0) + 1,
+      author: req.user.auth_id || 'Admin',
+      creatorName: req.user.auth_id || 'Admin',
+      date: now,
+      time: timeStr,
+      creatorId: req.user.id || req.user._id || req.user.auth_id,
+      creatorRole: 'admin',
+      approvedBy: req.user.id || req.user._id || req.user.auth_id,
+      hostelName: hostelId,
+      status: 'Approved',
+      tags,
+      pollOptions,
+    };
+    
+    if (mediaUrl) postData.mediaUrl = mediaUrl;
+    if (mediaType) postData.mediaType = mediaType;
+    
+    const post = await LivePost.create(postData);
+    await log(req, 'CREATE_LIVE_POST', 'community', post._id, (post.content||'').slice(0,40), null, post.toObject());
     res.status(201).json(post);
   } catch (err) { res.status(400).json({ message: err.message }); }
 };
@@ -638,20 +743,28 @@ exports.updateLivePost = async (req, res) => {
 
 exports.deleteLivePost = async (req, res) => {
   try {
-    const post = await LivePost.findByIdAndDelete(req.params.id);
+    let post = await LivePost.findByIdAndDelete(req.params.id);
+    if (!post) {
+      const CommunityPost = require('../models/CommunityPost');
+      post = await CommunityPost.findByIdAndDelete(req.params.id);
+    }
     if (!post) return res.status(404).json({ message: 'Not found' });
-    await log(req, 'DELETE_LIVE_POST', 'community', post._id, post.content.slice(0,40), post.toObject(), null);
+    await log(req, 'DELETE_LIVE_POST', 'community', post._id, (post.content || '').slice(0,40), post.toObject(), null);
     res.json({ message: 'Post deleted' });
   } catch (err) { res.status(500).json({ message: err.message }); }
 };
 
 exports.togglePinPost = async (req, res) => {
   try {
-    const post = await LivePost.findById(req.params.id);
+    let post = await LivePost.findById(req.params.id);
+    if (!post) {
+      const CommunityPost = require('../models/CommunityPost');
+      post = await CommunityPost.findById(req.params.id);
+    }
     if (!post) return res.status(404).json({ message: 'Not found' });
     post.pinned = !post.pinned;
     await post.save();
-    await log(req, post.pinned ? 'PIN_POST' : 'UNPIN_POST', 'community', post._id, post.content.slice(0,40), null, { pinned: post.pinned });
+    await log(req, post.pinned ? 'PIN_POST' : 'UNPIN_POST', 'community', post._id, (post.content || '').slice(0,40), null, { pinned: post.pinned });
     res.json({ message: post.pinned ? 'Post pinned' : 'Post unpinned', pinned: post.pinned });
   } catch (err) { res.status(500).json({ message: err.message }); }
 };
@@ -969,5 +1082,23 @@ exports.homeRecordSummary = async (req, res) => {
       byCategory,
       complianceScore: Math.round((Math.min(sharedCount, REQUIRED_REGISTERS) / REQUIRED_REGISTERS) * 100),
     });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+};
+
+// ── SOS Alerts ────────────────────────────────────────────────────────────
+
+exports.getUnreadSOS = async (req, res) => {
+  try {
+    const alerts = await SOSAlert.find({ status: 'unread' }).sort({ createdAt: -1 });
+    res.json(alerts);
+  } catch (err) { res.status(500).json({ message: err.message }); }
+};
+
+exports.markSOSRead = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const alert = await SOSAlert.findByIdAndUpdate(id, { status: 'read' }, { new: true });
+    if (!alert) return res.status(404).json({ message: 'SOS Alert not found' });
+    res.json(alert);
   } catch (err) { res.status(500).json({ message: err.message }); }
 };

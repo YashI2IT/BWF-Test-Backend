@@ -3,6 +3,8 @@ const TeacherSchedule = require('../../teacher/models/schedule');
 const Assignment = require('../models/assignment');
 const MentorNote = require('../models/mentorNote');
 const GlobalResource = require('../models/GlobalResource');
+const Student = require('../models/student');
+const DailyTask = require('../models/dailyTask');
 
 // Returns "YYYY-MM-DD" for today in local server time.
 // Used consistently across dashboard queries so everything is date-aligned.
@@ -79,10 +81,31 @@ async function getDailyInspiration() {
 }
   */
 
+// Fetch student gamification stats
+async function getStudentGamification(auth_id) {
+  const student = await Student.findOne({ auth_id }).lean();
+  if (!student) return { streak: 0, level: 1, xp: 0, coins: 0 };
+  return student.gamification || { streak: 0, level: 1, xp: 0, coins: 0 };
+}
+
+// Fetch daily quests progress
+async function getDailyQuestsProgress(auth_id) {
+  const today = getTodayString();
+  const tasks = await DailyTask.find({ auth_id, date: today }).lean();
+  
+  // If no tasks exist for today, use 3 as a baseline for the UI
+  const total = Math.max(tasks.length, 3);
+  const completed = tasks.filter(t => t.completed).length;
+  
+  return { completed, total };
+}
+
 module.exports = {
   getTodaySchedule,
   getRecentAssignments,
   getLatestMentorNote,
   getGlobalResources,
-  getTodayString
+  getTodayString,
+  getStudentGamification,
+  getDailyQuestsProgress
 };

@@ -27,7 +27,7 @@ async function getAssignments(auth_id, range = "30d") {
 
   const filtered = data.filter(d => d.assignment_id !== null);
 
-  return filtered
+  const filteredAssignments = filtered
     .map(d => ({
       _id: d.assignment_id._id,
       title: d.assignment_id.title,

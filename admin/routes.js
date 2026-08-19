@@ -4,7 +4,11 @@
 const express    = require('express');
 const router     = express.Router();
 const ctrl       = require('./controller');
+const noticesController = require('./noticesController');
 const { authenticateToken } = require('../auth/middleware');
+const upload = require('../student/community/middleware');
+const multer = require('multer');
+const memoryUpload = multer({ storage: multer.memoryStorage() });
 
 function requireAdmin(req, res, next) {
   if (req.user?.role !== 'admin') {
@@ -49,6 +53,12 @@ router.delete('/posts/:id', ctrl.deletePost);
 // Audit Logs (read-only)
 router.get('/audit-logs', ctrl.getAuditLogs);
 
+// Notices
+router.get('/notices', noticesController.getNotices);
+router.post('/notices', memoryUpload.single('image'), noticesController.createNotice);
+router.put('/notices/:noticeId', memoryUpload.single('image'), noticesController.updateNotice);
+router.delete('/notices/:noticeId', noticesController.deleteNotice);
+
 // Reports
 router.get('/reports/summary', ctrl.getReportSummary);
 
@@ -74,10 +84,19 @@ router.delete('/community/pending/:id',   ctrl.deletePendingPost);
 
 // Community — Live Posts
 router.get   ('/community/posts',         ctrl.listLivePosts);
-router.post  ('/community/posts',         ctrl.createLivePost);
+router.post  ('/community/posts',         (req, res, next) => {
+  upload.single('media')(req, res, (err) => {
+    if (err) {
+      console.error("Multer error:", err);
+      return res.status(500).json({ message: "Upload error: " + err.message });
+    }
+    next();
+  });
+}, ctrl.createLivePost);
 router.put   ('/community/posts/:id',     ctrl.updateLivePost);
 router.delete('/community/posts/:id',     ctrl.deleteLivePost);
 router.put   ('/community/posts/:id/pin', ctrl.togglePinPost);
+router.post  ('/community/posts/:id/like', ctrl.toggleLike);
 
 // Activities — Pending
 router.get   ('/activities/pending',     ctrl.listPendingActivities);
@@ -104,6 +123,10 @@ router.delete('/home-records/:id',                ctrl.deleteHomeRecord);
 router.post  ('/home-records/:id/entries',        ctrl.addRecordEntry);
 router.delete('/home-records/:id/entries/:entryId', ctrl.deleteRecordEntry);
 router.get   ('/home-records/summary/:home',      ctrl.homeRecordSummary);
+
+// SOS Alerts
+router.get   ('/sos/unread',     ctrl.getUnreadSOS);
+router.post  ('/sos/:id/read',   ctrl.markSOSRead);
 
 module.exports = router;
 

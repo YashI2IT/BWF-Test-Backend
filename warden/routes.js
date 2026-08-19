@@ -23,6 +23,7 @@ const {
   updatePostPin,
   deletePost,
   votePost,
+  toggleLike,
   getWardenProfile,
   updateWardenProfile,
   getComplaints,
@@ -263,6 +264,14 @@ router.post(
   authenticateToken,
   authorizeRoles('warden'),
   votePost
+);
+
+// TOGGLE LIKE
+router.post(
+  '/posts/:postId/like',
+  authenticateToken,
+  authorizeRoles('warden'),
+  toggleLike
 );
 
 // ===== COMPLAINTS =====
